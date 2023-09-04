@@ -16,7 +16,7 @@ export default async function Home() {
 
 async function getData() {
   const words = [...data];
-  const correctAnswer = 'till';
+  const correctAnswer = getChosenAnswer(words);
 
   return { words, correctAnswer };
 }

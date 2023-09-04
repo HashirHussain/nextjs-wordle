@@ -2,6 +2,7 @@ import React from "react";
 import { blocksValueType, getChances, getLettersBlock } from "../lib";
 
 const blockStyle = `h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md border-gray-200 uppercase`;
+const rightPositionStyle = `animate-[ping_75ms] bg-lime-200 border-lime-200`;
 
 type PropsType = {
     chanceLimit: number;
@@ -14,8 +15,15 @@ type PropsType = {
 const getBlockStyle = (
     submittedWord: any,
     correctAnswer: string,
-    blockIndex: number
+    blockIndex: number,
+    letter: string
 ) => {
+    if (submittedWord) {
+        if (correctAnswer[blockIndex] === letter) {
+            return `${blockStyle} ${rightPositionStyle}`;
+        }
+    }
+
     return `${blockStyle}`;
 };
 
@@ -38,7 +46,8 @@ export default function PlayBoard({
                                     className={getBlockStyle(
                                         submittedWords[rowIndex],
                                         correctAnswer,
-                                        blockIndex
+                                        blockIndex,
+                                        blocksValue[rowIndex][blockIndex]
                                     )}
                                 >
                                     {blocksValue[rowIndex][blockIndex]}
