@@ -1,113 +1,89 @@
-import React from "react";
-import { FiArrowLeft } from "react-icons/fi";
-import { FiCornerDownLeft } from "react-icons/fi";
+import { FiArrowLeft, FiCornerDownLeft } from "react-icons/fi";
+import { blocksValueType } from "../lib";
 
 const keyStyle = `flex grow shrink basis-px
 items-center justify-center
-select-none
-px-3 py-1 sm:py-2 border-2 border-gray-200
-hover:border-gray-300 active:border-gray-400
-bg-slate-200 hover:bg-slate-300 active:bg-slate-400
-rounded
-cursor-pointer
-text-1xl sm:text-2xl`;
+px-3 py-1 sm:py-2
+font-semibold text-gray-800
+bg-gray-100 active:bg-gray-200
+border border-gray-200 hover:border-gray-300 active:border-gray-400
+rounded-md
+dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500
+cursor-pointer`;
+
+const getKeyStyle = (lastWord: Array<string>, correctAnswer: string, key: string) => {
+    return keyStyle;
+};
 
 export default function Keyboard({
     onKeyboardClick,
+    blocksValue,
+    correctAnswer,
+    lastWord
 }: {
     onKeyboardClick: (arg0: string) => void;
+    blocksValue: blocksValueType;
+    correctAnswer: string;
+    lastWord: Array<string>;
 }) {
     return (
-        <div className="flex flex-col justify-center gap-1 uppercase font-semibold">
+        <div className="flex flex-col justify-center items-center gap-1 uppercase">
             <div className="flex flex-row justify-stretch gap-x-1">
-                <div className={keyStyle} onClick={() => onKeyboardClick("Q")}>
-                    Q
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("W")}>
-                    W
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("E")}>
-                    E
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("R")}>
-                    R
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("T")}>
-                    T
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("Y")}>
-                    Y
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("U")}>
-                    U
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("I")}>
-                    I
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("O")}>
-                    O
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("P")}>
-                    P
-                </div>
+                {["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"].map(
+                    (key: string, index: number) => {
+                        return (
+                            <div
+                                key={`key-${key}-${index}`}
+                                className={getKeyStyle(lastWord, correctAnswer, key)}
+                                onClick={() => onKeyboardClick(key)}
+                            >
+                                {key}
+                            </div>
+                        );
+                    }
+                )}
             </div>
             <div className="flex flex-row justify-stretch gap-x-1">
-                <div className={keyStyle} onClick={() => onKeyboardClick("A")}>
-                    A
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("S")}>
-                    S
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("D")}>
-                    D
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("F")}>
-                    F
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("G")}>
-                    G
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("H")}>
-                    H
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("J")}>
-                    J
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("K")}>
-                    K
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("L")}>
-                    L
-                </div>
+                {["a", "s", "d", "f", "g", "h", "j", "k", "l"].map(
+                    (key: string, index: number) => {
+                        return (
+                            <div
+                                key={`key-${key}-${index}`}
+                                className={getKeyStyle(lastWord, correctAnswer, key)}
+                                onClick={() => onKeyboardClick(key)}
+                            >
+                                {key}
+                            </div>
+                        );
+                    }
+                )}
             </div>
             <div className="flex flex-row justify-stretch gap-x-1">
-                <div className={keyStyle} onClick={() => onKeyboardClick("Backspace")}>
+                <div
+                    className={keyStyle}
+                    onClick={() => onKeyboardClick("Backspace")}
+                >
                     &nbsp;&nbsp;
                     <FiArrowLeft />
                     &nbsp;&nbsp;
                 </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("Z")}>
-                    Z
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("X")}>
-                    X
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("C")}>
-                    C
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("V")}>
-                    V
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("B")}>
-                    B
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("N")}>
-                    N
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("M")}>
-                    M
-                </div>
-                <div className={keyStyle} onClick={() => onKeyboardClick("Enter")}>
+                {["z", "x", "c", "v", "b", "n", "m"].map(
+                    (key: string, index: number) => {
+                        return (
+                            <div
+                                key={`key-${key}-${index}`}
+                                className={getKeyStyle(lastWord, correctAnswer, key)}
+                                onClick={() => onKeyboardClick(key)}
+                            >
+                                {key}
+                            </div>
+                        );
+                    }
+                )}
+                <div
+                    className={keyStyle}
+                    onClick={() => onKeyboardClick("Enter")}
+                >
                     &nbsp;&nbsp;
                     <FiCornerDownLeft />
                     &nbsp;&nbsp;
