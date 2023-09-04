@@ -24,11 +24,14 @@ const hasEnterTriggered = (
   lettersLimit: number,
   chanceLimit: number
 ) => {
-  return (
-    _key === enterKey &&
-    blocksValue[selectedRow].length >= lettersLimit &&
-    selectedRow <= chanceLimit - 1
-  );
+  if (_key === enterKey) {
+    if (selectedRow < chanceLimit) {
+      if (blocksValue[selectedRow].length >= lettersLimit) {
+        return true;
+      }
+    }
+  }
+  return false;
 };
 
 const handleBackspace = (values: blocksValueType, selectedRow: number) => {
@@ -44,6 +47,9 @@ const fillBlock = (
   selectedRow: number,
   lettersLimit: number
 ) => {
+  if (values.length === selectedRow) {
+    return values;
+  }
   if (values[selectedRow].length === lettersLimit) {
     return values;
   }

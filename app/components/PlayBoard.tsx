@@ -3,6 +3,8 @@ import { blocksValueType, getChances, getLettersBlock } from "../lib";
 
 const blockStyle = `h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md border-gray-200 uppercase`;
 const rightPositionStyle = `animate-[ping_75ms] bg-lime-200 border-lime-200`;
+const wrongPositionStyle = `bg-yellow-300 border-yellow-300`;
+const noPositionStyle = `bg-gray-300 border-gray-300`;
 
 type PropsType = {
     chanceLimit: number;
@@ -21,6 +23,14 @@ const getBlockStyle = (
     if (submittedWord) {
         if (correctAnswer[blockIndex] === letter) {
             return `${blockStyle} ${rightPositionStyle}`;
+        } else if (
+            correctAnswer.indexOf(letter) !== -1 &&
+            correctAnswer.indexOf(letter) !== blockIndex
+        ) {
+            
+            return `${blockStyle} ${wrongPositionStyle}`;
+        } else if (correctAnswer.indexOf(letter) === -1) {
+            return `${blockStyle} ${noPositionStyle}`;
         }
     }
 
