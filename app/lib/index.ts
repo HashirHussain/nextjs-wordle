@@ -3,9 +3,9 @@ const ALPHABETS = [
   ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
   ["z", "x", "c", "v", "b", "n", "m"],
 ];
-const keyboardEvent = "keyup";
-const enterKey = "enter";
-const backspaceKey = "backspace";
+const KEYBOARD_EVENT = "keyup";
+const ENTER_KEY = "enter";
+const BACKSPACE_KEY = "backspace";
 
 type blocksValueType = Array<Array<string>>;
 
@@ -28,7 +28,7 @@ const hasEnterTriggered = (
   lettersLimit: number,
   chanceLimit: number
 ) => {
-  if (_key === enterKey) {
+  if (_key === ENTER_KEY) {
     if (selectedRow < chanceLimit) {
       if (blocksValue[selectedRow].length >= lettersLimit) {
         return true;
@@ -79,8 +79,8 @@ const findIndices = (arr: any, value: any) => {
 
 export {
   ALPHABETS,
-  backspaceKey,
-  enterKey,
+  BACKSPACE_KEY,
+  ENTER_KEY,
   fillBlock,
   findIndices,
   getChances,
@@ -88,7 +88,7 @@ export {
   getLettersBlock,
   handleBackspace,
   hasEnterTriggered,
-  keyboardEvent,
+  KEYBOARD_EVENT,
   unique,
 };
 export type { blocksValueType };

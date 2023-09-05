@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Alert from "./components/Alert";
 import Keyboard from "./components/Keyboard";
 import PlayBoard from "./components/PlayBoard";
 import {
-  backspaceKey,
+  BACKSPACE_KEY,
+  KEYBOARD_EVENT,
   blocksValueType,
   fillBlock,
   getChosenAnswer,
   handleBackspace,
   hasEnterTriggered,
-  keyboardEvent,
 } from "./lib";
 
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
@@ -22,8 +23,10 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const [correctAnswer, setCorrectAnswer] = useState<string>(
     getChosenAnswer(wordsList)
   );
+  const [alertMessage, setAlertMessage] = useState<string>("");
 
   function blockEventHandler(key: string) {
+    setAlertMessage("");
     const _key = key.toLowerCase();
     if (
       hasEnterTriggered(
@@ -34,11 +37,21 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
         chanceLimit
       )
     ) {
+      const currentValues = [...blocksValue[selectedRow]];
       const _submittedWords = [...submittedWords];
-      _submittedWords[selectedRow] = [...blocksValue[selectedRow]];
+
+      if (wordsList.indexOf(currentValues.join("")) === -1) {
+        setAlertMessage("Not in word list");
+        return;
+      }
+
+      _submittedWords[selectedRow] = [...currentValues];
       setSubmittedWords([..._submittedWords]);
       setSelectedRow(selectedRow + 1);
-    } else if (_key === backspaceKey && blocksValue[selectedRow].length !== 0) {
+    } else if (
+      _key === BACKSPACE_KEY &&
+      blocksValue[selectedRow].length !== 0
+    ) {
       const result = handleBackspace(blocksValue, selectedRow);
       setBlocksValue([...result]);
     } else {
@@ -57,6 +70,18 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   };
 
   useEffect(() => {
+    let timeoutId: string | number | NodeJS.Timeout | undefined;
+    if (alertMessage) {
+      timeoutId = setTimeout(() => {
+        setAlertMessage("");
+      }, 1500);
+    }
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [alertMessage]);
+
+  useEffect(() => {
     const initialValues = Array(chanceLimit).fill([]);
     setBlocksValue([...initialValues]);
     return () => { };
@@ -65,11 +90,11 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const handlerKeyboardRef = useRef(KeyUpHandler);
   handlerKeyboardRef.current = KeyUpHandler;
   useEffect(() => {
-    document.addEventListener(keyboardEvent, (event) =>
+    document.addEventListener(KEYBOARD_EVENT, (event) =>
       handlerKeyboardRef.current(event)
     );
     return () => {
-      document.removeEventListener(keyboardEvent, handlerKeyboardRef.current);
+      document.removeEventListener(KEYBOARD_EVENT, handlerKeyboardRef.current);
     };
   }, []);
 
@@ -92,6 +117,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
         correctAnswer={correctAnswer}
         submittedWords={submittedWords}
       />
+      {alertMessage && <Alert message={alertMessage} />}
     </>
   );
 }
