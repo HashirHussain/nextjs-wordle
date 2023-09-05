@@ -1,4 +1,8 @@
-const ALPHABETS = "abcdefghijklmnopqrstuvwxyz";
+const ALPHABETS = [
+  ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+  ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
+  ["z", "x", "c", "v", "b", "n", "m"],
+];
 const keyboardEvent = "keyup";
 const enterKey = "enter";
 const backspaceKey = "backspace";
@@ -53,7 +57,7 @@ const fillBlock = (
   if (values[selectedRow].length === lettersLimit) {
     return values;
   }
-  if (ALPHABETS.indexOf(key) !== -1) {
+  if (ALPHABETS.flat().indexOf(key) !== -1) {
     const row = [...values[selectedRow]];
     row.push(key);
     const newValue = values;
@@ -69,6 +73,10 @@ const unique = (arr: any) => {
   });
 };
 
+const findIndices = (arr: any, value: any) => {
+  return arr.map((e: any, i: number) => (e === value ? i : "")).filter(String);
+};
+
 export {
   ALPHABETS,
   backspaceKey,
@@ -81,5 +89,6 @@ export {
   handleBackspace,
   fillBlock,
   unique,
+  findIndices,
 };
 export type { blocksValueType };

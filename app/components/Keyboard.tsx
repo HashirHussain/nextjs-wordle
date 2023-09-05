@@ -1,5 +1,5 @@
 import { FiArrowLeft, FiCornerDownLeft } from "react-icons/fi";
-import { blocksValueType } from "../lib";
+import { ALPHABETS, blocksValueType } from "../lib";
 
 const keyStyle = `flex grow shrink basis-px
 items-center justify-center
@@ -29,7 +29,7 @@ export default function Keyboard({
     return (
         <div className="flex flex-col justify-center items-center gap-1 uppercase">
             <div className="flex flex-row justify-stretch gap-x-1">
-                {["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"].map(
+                {ALPHABETS[0].map(
                     (key: string, index: number) => {
                         return (
                             <div
@@ -44,7 +44,7 @@ export default function Keyboard({
                 )}
             </div>
             <div className="flex flex-row justify-stretch gap-x-1">
-                {["a", "s", "d", "f", "g", "h", "j", "k", "l"].map(
+                {ALPHABETS[1].map(
                     (key: string, index: number) => {
                         return (
                             <div
@@ -67,7 +67,7 @@ export default function Keyboard({
                     <FiArrowLeft />
                     &nbsp;&nbsp;
                 </div>
-                {["z", "x", "c", "v", "b", "n", "m"].map(
+                {ALPHABETS[2].map(
                     (key: string, index: number) => {
                         return (
                             <div
