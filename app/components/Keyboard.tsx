@@ -9,7 +9,8 @@ bg-gray-100 active:bg-gray-200
 border border-gray-200 hover:border-gray-300 active:border-gray-400
 rounded-md
 dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500
-cursor-pointer`;
+cursor-pointer
+select-none`;
 
 const getKeyStyle = (lastWord: Array<string>, correctAnswer: string, key: string) => {
     return keyStyle;
