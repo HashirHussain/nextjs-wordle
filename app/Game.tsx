@@ -1,29 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import Keyboard from "./components/Keyboard";
 import PlayBoard from "./components/PlayBoard";
 import {
   backspaceKey,
   blocksValueType,
   fillBlock,
+  getChosenAnswer,
   handleBackspace,
   hasEnterTriggered,
   keyboardEvent,
 } from "./lib";
 
-export default function Game({
-  words,
-  correctAnswer,
-}: {
-  words: Array<string>;
-  correctAnswer: string;
-}) {
+export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const [lettersLimit, setLettersLimit] = useState<number>(4);
   const [chanceLimit, setChanceLimit] = useState<number>(6);
   const [selectedRow, setSelectedRow] = useState<number>(0);
   const [blocksValue, setBlocksValue] = useState<blocksValueType>([]); //Holds grid values while input
-  const [submittedWords, setSubmittedWords] = useState<blocksValueType>([]); //Holds grid value on enter key press
+  const [submittedWords, setSubmittedWords] = useState<blocksValueType>([]); //Holds the current row values
+  const [correctAnswer, setCorrectAnswer] = useState<string>(
+    getChosenAnswer(wordsList)
+  );
 
   function blockEventHandler(key: string) {
     const _key = key.toLowerCase();
@@ -79,6 +77,8 @@ export default function Game({
   if (blocksValue.length === 0) {
     return;
   }
+
+  console.log('correctAnswer', correctAnswer);
 
   return (
     <>
