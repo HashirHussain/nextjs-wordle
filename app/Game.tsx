@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Keyboard from "./components/Keyboard";
 import PlayBoard from "./components/PlayBoard";
 import {
