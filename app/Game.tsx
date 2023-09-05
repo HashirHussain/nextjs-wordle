@@ -78,8 +78,6 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     return;
   }
 
-  console.log('correctAnswer', correctAnswer);
-
   return (
     <>
       <PlayBoard
@@ -91,9 +89,8 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
       />
       <Keyboard
         onKeyboardClick={blockEventHandler}
-        blocksValue={blocksValue}
         correctAnswer={correctAnswer}
-        lastWord={blocksValue[selectedRow - 1]}
+        submittedWords={submittedWords}
       />
     </>
   );

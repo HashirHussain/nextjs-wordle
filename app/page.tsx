@@ -1,5 +1,4 @@
 import Game from "./Game";
-import { getChosenAnswer } from "./lib";
 import data from "./data/four-letter-words.json";
 
 export default async function Home() {
