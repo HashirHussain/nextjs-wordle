@@ -136,7 +136,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     };
   }, []);
 
-  console.log("correctAnswer", correctAnswer);
+  console.log("Correct answer for debugging purpose -->", correctAnswer);
 
   // If Grid is not set yet
   if (blocksValue.length === 0) {
@@ -145,21 +145,23 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
 
   return (
     <>
-      {/* <Header/> */}
-      <PlayBoard
-        submittedWords={submittedWords}
-        chanceLimit={chanceLimit}
-        lettersLimit={lettersLimit}
-        blocksValue={blocksValue}
-        correctAnswer={correctAnswer}
-      />
-      <Keyboard
-        onKeyboardClick={blockEventHandler}
-        correctAnswer={correctAnswer}
-        submittedWords={submittedWords}
-      />
-      <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
-      {alertMessage && <Alert>{alertMessage}</Alert>}
+      <Header />
+      <div className="flex flex-col justify-center items-center gap-10">
+        <PlayBoard
+          submittedWords={submittedWords}
+          chanceLimit={chanceLimit}
+          lettersLimit={lettersLimit}
+          blocksValue={blocksValue}
+          correctAnswer={correctAnswer}
+        />
+        <Keyboard
+          onKeyboardClick={blockEventHandler}
+          correctAnswer={correctAnswer}
+          submittedWords={submittedWords}
+        />
+        <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
+        {alertMessage && <Alert>{alertMessage}</Alert>}
+      </div>
     </>
   );
 }
