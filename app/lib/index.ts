@@ -21,19 +21,8 @@ const getLettersBlock = (count: number) => {
   return Array(count).fill("");
 };
 
-const hasEnterTriggered = (
-  _key: string,
-  blocksValue: blocksValueType,
-  selectedRow: number,
-  lettersLimit: number,
-  chanceLimit: number
-) => {
-  if (_key === ENTER_KEY) {
-    if (selectedRow < chanceLimit) {
-      return true;
-    }
-  }
-  return false;
+const hasEnterTriggered = (_key: string) => {
+  return _key === ENTER_KEY;
 };
 
 const handleBackspace = (values: blocksValueType, selectedRow: number) => {

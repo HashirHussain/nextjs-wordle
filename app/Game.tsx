@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, JSX } from "react";
 import Alert from "./components/Alert";
 import Keyboard from "./components/Keyboard";
 import PlayBoard from "./components/PlayBoard";
@@ -30,19 +30,21 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   function blockEventHandler(key: string) {
     setAlertMessage(null);
     const _key = key.toLowerCase();
-    if (
-      hasEnterTriggered(
-        _key,
-        blocksValue,
-        selectedRow,
-        lettersLimit,
-        chanceLimit
-      )
-    ) {
+    if (hasEnterTriggered(_key)) {
+      if (selectedRow + 1 === chanceLimit) {
+        resetWithMessage(<span>{"You lost"}</span>);
+        return;
+      }
       const currentValues = [...blocksValue[selectedRow]];
+
       if (currentValues.length < lettersLimit) {
         setAlertMessage(<span>{"Too short"}</span>);
-        return true;
+        return;
+      }
+
+      if (currentValues.join("") === correctAnswer) {
+        resetWithMessage(<span>{"You won"}</span>);
+        return;
       }
       const _submittedWords = [...submittedWords];
 
@@ -79,14 +81,18 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     resetGame();
   };
 
+  const resetWithMessage = (message: JSX.Element) => {
+    setAlertMessage(message);
+    setTimeout(() => {
+      resetGame();
+    }, 1500);
+  };
+
   const onGiveUpHandler = (e: any) => {
     if (blocksValue.flat().length) {
-      setAlertMessage(
+      resetWithMessage(
         <span className="uppercase tracking-widest">{correctAnswer}</span>
       );
-      setTimeout(() => {
-        resetGame();
-      }, 1500);
     }
   };
 
@@ -129,6 +135,8 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
       document.removeEventListener(KEYBOARD_EVENT, handlerKeyboardRef.current);
     };
   }, []);
+
+  console.log("correctAnswer", correctAnswer);
 
   // If Grid is not set yet
   if (blocksValue.length === 0) {
