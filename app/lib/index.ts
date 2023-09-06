@@ -30,9 +30,7 @@ const hasEnterTriggered = (
 ) => {
   if (_key === ENTER_KEY) {
     if (selectedRow < chanceLimit) {
-      if (blocksValue[selectedRow].length >= lettersLimit) {
-        return true;
-      }
+      return true;
     }
   }
   return false;

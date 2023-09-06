@@ -27,7 +27,7 @@ const getKeyStyle = (
         }
 
         if (keyIndex !== -1 && correctAnswer.indexOf(key) === -1) {
-            // not a correct key
+            // not the correct key
             return `${keyStyle} bg-gray-300`;
         }
 
@@ -65,6 +65,7 @@ export default function Keyboard({
                     return (
                         <button
                             type="button"
+                            tabIndex={-1}
                             key={`key-${key}-${index}`}
                             className={getKeyStyle(submittedWords, correctAnswer, key)}
                             onClick={() => onKeyboardClick(key)}
@@ -77,38 +78,52 @@ export default function Keyboard({
             <div className="flex flex-row justify-stretch gap-x-1">
                 {ALPHABETS[1].map((key: string, index: number) => {
                     return (
-                        <div
+                        <button
+                            type="button"
+                            tabIndex={-1}
                             key={`key-${key}-${index}`}
                             className={getKeyStyle(submittedWords, correctAnswer, key)}
                             onClick={() => onKeyboardClick(key)}
                         >
                             {key}
-                        </div>
+                        </button>
                     );
                 })}
             </div>
             <div className="flex flex-row justify-stretch gap-x-1">
-                <div className={keyStyle} onClick={() => onKeyboardClick("Backspace")}>
-                    &nbsp;&nbsp;
+                <button
+                    type="button"
+                    tabIndex={-1}
+                    className={keyStyle}
+                    onClick={() => onKeyboardClick("Backspace")}
+                >
+                    {"  "}
                     <FiArrowLeft />
-                    &nbsp;&nbsp;
-                </div>
+                    {"  "}
+                </button>
                 {ALPHABETS[2].map((key: string, index: number) => {
                     return (
-                        <div
+                        <button
+                            type="button"
+                            tabIndex={-1}
                             key={`key-${key}-${index}`}
                             className={getKeyStyle(submittedWords, correctAnswer, key)}
                             onClick={() => onKeyboardClick(key)}
                         >
                             {key}
-                        </div>
+                        </button>
                     );
                 })}
-                <div className={keyStyle} onClick={() => onKeyboardClick("Enter")}>
-                    &nbsp;&nbsp;
+                <button
+                    type="button"
+                    tabIndex={-1}
+                    className={keyStyle}
+                    onClick={() => onKeyboardClick("Enter")}
+                >
+                    {"  "}
                     <FiCornerDownLeft />
-                    &nbsp;&nbsp;
-                </div>
+                    {"  "}
+                </button>
             </div>
         </div>
     );

@@ -13,6 +13,8 @@ import {
   handleBackspace,
   hasEnterTriggered,
 } from "./lib";
+import CTA from "./components/CTA";
+import Header from "./components/Header";
 
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const [lettersLimit, setLettersLimit] = useState<number>(4);
@@ -23,10 +25,10 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const [correctAnswer, setCorrectAnswer] = useState<string>(
     getChosenAnswer(wordsList)
   );
-  const [alertMessage, setAlertMessage] = useState<string>("");
+  const [alertMessage, setAlertMessage] = useState<any>(null);
 
   function blockEventHandler(key: string) {
-    setAlertMessage("");
+    setAlertMessage(null);
     const _key = key.toLowerCase();
     if (
       hasEnterTriggered(
@@ -38,10 +40,14 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
       )
     ) {
       const currentValues = [...blocksValue[selectedRow]];
+      if (currentValues.length < lettersLimit) {
+        setAlertMessage(<span>{"Too short"}</span>);
+        return true;
+      }
       const _submittedWords = [...submittedWords];
 
       if (wordsList.indexOf(currentValues.join("")) === -1) {
-        setAlertMessage("Not in word list");
+        setAlertMessage(<span>{"Not in word list"}</span>);
         return;
       }
 
@@ -69,11 +75,38 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     blockEventHandler(key);
   };
 
+  const onRestartHandler = () => {
+    resetGame();
+  };
+
+  const onGiveUpHandler = (e: any) => {
+    if (blocksValue.flat().length) {
+      setAlertMessage(
+        <span className="uppercase tracking-widest">{correctAnswer}</span>
+      );
+      setTimeout(() => {
+        resetGame();
+      }, 1500);
+    }
+  };
+
+  const resetGame = () => {
+    setSelectedRow(0);
+    setCorrectAnswer(getChosenAnswer(wordsList));
+    setSubmittedWords([]);
+    setDefaultGrid();
+  };
+
+  const setDefaultGrid = () => {
+    const initialValues = Array(chanceLimit).fill([]);
+    setBlocksValue([...initialValues]);
+  };
+
   useEffect(() => {
     let timeoutId: string | number | NodeJS.Timeout | undefined;
     if (alertMessage) {
       timeoutId = setTimeout(() => {
-        setAlertMessage("");
+        setAlertMessage(null);
       }, 1500);
     }
     return () => {
@@ -82,10 +115,9 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   }, [alertMessage]);
 
   useEffect(() => {
-    const initialValues = Array(chanceLimit).fill([]);
-    setBlocksValue([...initialValues]);
+    setDefaultGrid();
     return () => { };
-  }, [chanceLimit, lettersLimit]);
+  }, []); // chanceLimit, lettersLimit
 
   const handlerKeyboardRef = useRef(KeyUpHandler);
   handlerKeyboardRef.current = KeyUpHandler;
@@ -105,6 +137,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
 
   return (
     <>
+      {/* <Header/> */}
       <PlayBoard
         submittedWords={submittedWords}
         chanceLimit={chanceLimit}
@@ -117,7 +150,8 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
         correctAnswer={correctAnswer}
         submittedWords={submittedWords}
       />
-      {alertMessage && <Alert message={alertMessage} />}
+      <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
+      {alertMessage && <Alert>{alertMessage}</Alert>}
     </>
   );
 }
