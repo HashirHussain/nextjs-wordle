@@ -6,6 +6,7 @@ items-center justify-center
 px-3 py-1 sm:py-2
 font-semibold text-gray-800
 bg-gray-100 active:bg-gray-200
+dark:text-gray-50 dark:bg-gray-700
 border border-gray-200 hover:border-gray-300 active:border-gray-400
 rounded-md
 uppercase
@@ -28,7 +29,7 @@ const getKeyStyle = (
 
         if (keyIndex !== -1 && correctAnswer.indexOf(key) === -1) {
             // not the correct key
-            return `${keyStyle} bg-gray-300`;
+            return `${keyStyle} bg-gray-400 dark:bg-gray-400 text-gray-50`;
         }
 
         if (keyIndex !== -1 && correctAnswer.indexOf(key) !== -1) {
@@ -39,10 +40,10 @@ const getKeyStyle = (
                 .filter((item: number) => item !== -1);
             if (allPositionsOfKey.indexOf(correctAnswer.indexOf(key)) !== -1) {
                 //present at correct place
-                return `${keyStyle} bg-lime-300`;
+                return `${keyStyle} bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
             }
             // present at different place
-            return `${keyStyle} bg-yellow-300`;
+            return `${keyStyle} bg-amber-400 border-amber-400 dark:bg-amber-400 dark:border-amber-400 text-gray-50`;
         }
     }
 
@@ -66,7 +67,7 @@ export default function Keyboard({
                         <button
                             type="button"
                             tabIndex={-1}
-                            key={`key-${key}-${index}`}
+                            key={`key - ${key} -${index} `}
                             className={getKeyStyle(submittedWords, correctAnswer, key)}
                             onClick={() => onKeyboardClick(key)}
                         >
@@ -81,7 +82,7 @@ export default function Keyboard({
                         <button
                             type="button"
                             tabIndex={-1}
-                            key={`key-${key}-${index}`}
+                            key={`key - ${key} -${index} `}
                             className={getKeyStyle(submittedWords, correctAnswer, key)}
                             onClick={() => onKeyboardClick(key)}
                         >
@@ -106,7 +107,7 @@ export default function Keyboard({
                         <button
                             type="button"
                             tabIndex={-1}
-                            key={`key-${key}-${index}`}
+                            key={`key - ${key} -${index} `}
                             className={getKeyStyle(submittedWords, correctAnswer, key)}
                             onClick={() => onKeyboardClick(key)}
                         >

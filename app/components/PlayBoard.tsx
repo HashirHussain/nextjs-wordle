@@ -5,10 +5,10 @@ import {
   getLettersBlock,
 } from "../lib";
 
-const blockStyle = `h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md border-gray-200 uppercase`;
-const rightPositionStyle = `animate-[ping_75ms] bg-lime-200 border-lime-200`;
-const wrongPositionStyle = `bg-yellow-300 border-yellow-300`;
-const noPositionStyle = `bg-gray-300 border-gray-300`;
+const blockStyle = `h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md border-gray-200 text-gray-600 dark:text-gray-50 uppercase`;
+const rightPositionStyle = `animate-[ping_75ms] bg-lime-600 border-lime-600 text-gray-50`;
+const wrongPositionStyle = `bg-amber-400 border-amber-400 text-gray-50`;
+const noPositionStyle = `bg-gray-500 border-gray-500 text-gray-50`;
 
 type PropsType = {
   chanceLimit: number;
