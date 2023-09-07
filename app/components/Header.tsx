@@ -1,15 +1,8 @@
-import React from "react";
-import { FaGithub, FaLinkedin, FaSun } from "react-icons/fa";
+"use client";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 export default function Header() {
-    function toggleTheme() {
-        const root = document.documentElement;
-        if (root.classList.contains("dark")) {
-            root.classList.remove("dark");
-        } else {
-            root.classList.add("dark");
-        }
-    }
     return (
         <header className="text-gray-600 body-font">
             <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -37,14 +30,7 @@ export default function Header() {
                     <span className="ml-3 text-xl">Wordle</span>
                 </a>
                 <div className="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
-                    <button
-                        type="button"
-                        onClick={toggleTheme}
-                        className="inline-flex items-center bg-gray-100 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
-                    >
-                        {""}
-                        <FaSun />
-                    </button>
+                    <ThemeSwitcher />
                 </div>
             </div>
         </header>

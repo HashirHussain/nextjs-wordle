@@ -12,7 +12,6 @@ import {
   getChosenAnswer,
   handleBackspace,
   hasEnterTriggered,
-  setSystemTheme,
 } from "./lib";
 import CTA from "./components/CTA";
 import Header from "./components/Header";
@@ -108,10 +107,6 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     const initialValues = Array(chanceLimit).fill([]);
     setBlocksValue([...initialValues]);
   };
-
-  useEffect(() => {
-    setSystemTheme();
-  }, []);
 
   useEffect(() => {
     let timeoutId: string | number | NodeJS.Timeout | undefined;
