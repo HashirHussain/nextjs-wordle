@@ -5,7 +5,7 @@ import {
   getLettersBlock,
 } from "../lib";
 
-const blockStyle = `h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md border-gray-200 text-gray-600 dark:text-gray-50 uppercase`;
+const blockBlockStyle = `h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase`;
 const rightPositionStyle = `animate-[ping_75ms] bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
 const wrongPositionStyle = `bg-amber-400 border-amber-400 dark:bg-amber-400 dark:border-amber-400 text-gray-50`;
 const noPositionStyle = `bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50`;
@@ -26,7 +26,7 @@ const getBlockStyle = (
 ) => {
   if (submittedWord) {
     if (correctAnswer[blockIndex] === letter) {
-      return `${blockStyle} ${rightPositionStyle}`;
+      return `${blockBlockStyle} ${rightPositionStyle}`;
     } else if (correctAnswer.indexOf(letter) !== -1) {
       let letterPresent = false;
       const letterAppearance = findIndices(correctAnswer.split(""), letter);
@@ -41,14 +41,14 @@ const getBlockStyle = (
         }
       }
       if (letterPresent) {
-        return `${blockStyle} ${wrongPositionStyle}`;
+        return `${blockBlockStyle} ${wrongPositionStyle}`;
       }
     } else if (correctAnswer.indexOf(letter) === -1) {
-      return `${blockStyle} ${noPositionStyle}`;
+      return `${blockBlockStyle} ${noPositionStyle}`;
     }
   }
 
-  return `${blockStyle}`;
+  return `${blockBlockStyle} border-gray-200 text-gray-600 dark:text-gray-50`;
 };
 
 export default function PlayBoard({
