@@ -64,6 +64,15 @@ const findIndices = (arr: any, value: any) => {
   return arr.map((e: any, i: number) => (e === value ? i : "")).filter(String);
 };
 
+const setSystemTheme = () => {
+  const root = document.documentElement;
+  const systemTheme = window?.matchMedia?.("(prefers-color-scheme:dark)")
+    ?.matches
+    ? "dark"
+    : "";
+  root.classList.add(systemTheme);
+};
+
 export {
   ALPHABETS,
   BACKSPACE_KEY,
@@ -77,5 +86,6 @@ export {
   hasEnterTriggered,
   KEYBOARD_EVENT,
   unique,
+  setSystemTheme,
 };
 export type { blocksValueType };
