@@ -1,72 +1,91 @@
 "use client";
 
-import { useEffect, useRef, useState, JSX } from "react";
+import { JSX, useEffect, useRef, useState } from "react";
 import Alert from "./components/Alert";
-import Keyboard from "./components/Keyboard";
-import PlayBoard from "./components/PlayBoard";
-import {
-  BACKSPACE_KEY,
-  KEYBOARD_EVENT,
-  blocksValueType,
-  fillBlock,
-  getChosenAnswer,
-  handleBackspace,
-  hasEnterTriggered,
-} from "./lib";
 import CTA from "./components/CTA";
 import Header from "./components/Header";
+import KeyBoard from "./components/KeyBoard";
+import PlayBoard from "./components/PlayBoard";
+import {
+  CHANCE_LIMIT,
+  KEYBOARD_EVENT,
+  blocksValueType,
+  getChosenAnswer,
+  isAlphabetPressed,
+  isDeletedPressed,
+  isEnterPressed,
+} from "./lib";
 
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const [lettersLimit, setLettersLimit] = useState<number>(4);
   const [chanceLimit, setChanceLimit] = useState<number>(6);
-  const [selectedRow, setSelectedRow] = useState<number>(0);
-  const [blocksValue, setBlocksValue] = useState<blocksValueType>([]); //Holds grid values while input
-  const [submittedWords, setSubmittedWords] = useState<blocksValueType>([]); //Holds the current row values
   const [correctAnswer, setCorrectAnswer] = useState<string>(
     getChosenAnswer(wordsList)
   );
   const [alertMessage, setAlertMessage] = useState<any>(null);
+  const [grid, setGrid] = useState<blocksValueType>([]); // Holds letters while key press
+  const [tempWord, setTempWord] = useState<Array<string>>([]); // Holds current row letters
+  const [currentRow, setCurrentRow] = useState<number>(0);
+  const [gameEnd, setGameEnd] = useState<boolean>(false);
 
-  function blockEventHandler(key: string) {
-    setAlertMessage(null);
-    const _key = key.toLowerCase();
-    if (hasEnterTriggered(_key)) {
-      if (selectedRow + 1 === chanceLimit) {
-        resetWithMessage(<span>{"You lost"}</span>);
-        return;
-      }
-      const currentValues = [...blocksValue[selectedRow]];
-
-      if (currentValues.length < lettersLimit) {
-        setAlertMessage(<span>{"Too short"}</span>);
-        return;
-      }
-
-      if (currentValues.join("") === correctAnswer) {
-        resetWithMessage(<span>{"You won"}</span>);
-        return;
-      }
-      const _submittedWords = [...submittedWords];
-
-      if (wordsList.indexOf(currentValues.join("")) === -1) {
-        setAlertMessage(<span>{"Not in word list"}</span>);
-        return;
+  function keyPressHandler(key: string) {
+    setAlertMessage(null); // Hide alert box immediately after key press
+    if (gameEnd) {
+      setAlertMessage(<span>{"Game End! Press restart to begin."}</span>);
+      return;
+    }
+    if (currentRow === CHANCE_LIMIT) {
+      // Game has finished already
+      return;
+    }
+    if (isAlphabetPressed(key)) {
+      if (tempWord.length < lettersLimit) {
+        tempWord.push(key.toLowerCase());
+        setTempWord([...tempWord]);
       }
 
-      _submittedWords[selectedRow] = [...currentValues];
-      setSubmittedWords([..._submittedWords]);
-      setSelectedRow(selectedRow + 1);
-    } else if (
-      _key === BACKSPACE_KEY &&
-      blocksValue[selectedRow].length !== 0
-    ) {
-      const result = handleBackspace(blocksValue, selectedRow);
-      setBlocksValue([...result]);
-    } else {
-      const result = fillBlock(_key, blocksValue, selectedRow, lettersLimit);
-      setBlocksValue([...result]);
+      return;
+    }
+
+    if (isEnterPressed(key)) {
+      const value = tempWord;
+      if (value.length === lettersLimit) {
+        if (wordsList.indexOf(value.join("")) === -1) {
+          setAlertMessage(<span>{"Not in word list"}</span>);
+          return;
+        }
+        if (value.join("") === correctAnswer) {
+          // <-- Wining condition
+          setTempWord([]);
+          grid[currentRow] = [...value];
+          setGrid([...grid]);
+          setAlertMessage(<span>{"You Won"}</span>);
+          setGameEnd(true);
+          return;
+        }
+        if (currentRow + 1 === CHANCE_LIMIT) {
+          // This was the final enter press
+          setAlertMessage(<span>{"You lost"}</span>);
+          setGameEnd(true);
+        }
+        setTempWord([]);
+        grid[currentRow] = [...value];
+        setGrid([...grid]);
+        setCurrentRow(currentRow + 1); // Jump to the next row if game still going on
+      }
+      return;
+    }
+
+    if (isDeletedPressed(key)) {
+      if (tempWord.length > 0) {
+        tempWord.pop();
+        setTempWord([...tempWord]);
+      }
+      return;
     }
   }
+
+  /*Fresh --- END*/
 
   const KeyUpHandler = (event: {
     key: string;
@@ -74,38 +93,27 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   }) => {
     const key = event.key;
     event.stopPropagation();
-    blockEventHandler(key);
+    keyPressHandler(key);
   };
 
   const onRestartHandler = () => {
     resetGame();
   };
 
-  const resetWithMessage = (message: JSX.Element) => {
-    setAlertMessage(message);
-    setTimeout(() => {
-      resetGame();
-    }, 1500);
-  };
-
   const onGiveUpHandler = (e: any) => {
-    if (blocksValue.flat().length) {
-      resetWithMessage(
+    if (grid.flat().length) {
+      setAlertMessage(
         <span className="uppercase tracking-widest">{correctAnswer}</span>
       );
     }
   };
 
   const resetGame = () => {
-    setSelectedRow(0);
+    setCurrentRow(0);
     setCorrectAnswer(getChosenAnswer(wordsList));
-    setSubmittedWords([]);
-    setDefaultGrid();
-  };
-
-  const setDefaultGrid = () => {
-    const initialValues = Array(chanceLimit).fill([]);
-    setBlocksValue([...initialValues]);
+    setTempWord([]);
+    setGrid([]);
+    setGameEnd(false);
   };
 
   useEffect(() => {
@@ -120,11 +128,6 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     };
   }, [alertMessage]);
 
-  useEffect(() => {
-    setDefaultGrid();
-    return () => { };
-  }, []); // chanceLimit, lettersLimit
-
   const handlerKeyboardRef = useRef(KeyUpHandler);
   handlerKeyboardRef.current = KeyUpHandler;
   useEffect(() => {
@@ -136,28 +139,23 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     };
   }, []);
 
-  console.log("Correct answer for debugging purpose -->", correctAnswer);
-
-  // If Grid is not set yet
-  if (blocksValue.length === 0) {
-    return;
-  }
+  console.log("correctAnswer", correctAnswer);
 
   return (
     <>
       <Header />
       <div className="flex flex-col justify-center items-center gap-10">
         <PlayBoard
-          submittedWords={submittedWords}
-          chanceLimit={chanceLimit}
+          grid={grid}
+          currentRow={currentRow}
+          tempWord={tempWord}
           lettersLimit={lettersLimit}
-          blocksValue={blocksValue}
           correctAnswer={correctAnswer}
         />
-        <Keyboard
-          onKeyboardClick={blockEventHandler}
+        <KeyBoard
+          onKeyboardClick={keyPressHandler}
           correctAnswer={correctAnswer}
-          submittedWords={submittedWords}
+          grid={grid}
         />
         <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
         {alertMessage && <Alert>{alertMessage}</Alert>}
