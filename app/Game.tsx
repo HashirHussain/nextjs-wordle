@@ -5,7 +5,7 @@ import Alert from "./components/Alert";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import KeyBoard from "./components/KeyBoard";
+import KeyBoard from "./components/Keyboard";
 import PlayBoard from "./components/PlayBoard";
 import {
   CHANCE_LIMIT,
