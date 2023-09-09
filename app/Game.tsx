@@ -148,7 +148,6 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
       <div className="flex flex-col justify-center items-center">
         {alertMessage && <Alert>{alertMessage}</Alert>}
         <Header />
-        {/* <HowTo /> */}
         <PlayBoard
           grid={grid}
           currentRow={currentRow}
@@ -162,7 +161,6 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
           grid={grid}
         />
         <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
-        {/* <Modal /> */}
         <Footer />
       </div>
     </>
