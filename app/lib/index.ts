@@ -12,7 +12,7 @@ const DELETE_KEY = "delete";
 
 type blocksValueType = Array<Array<string>>;
 
-const getChosenAnswer = (list: Array<string>) => {
+const pickRandom = (list: Array<string>) => {
   return list[Math.floor(Math.random() * list.length)];
 };
 
@@ -84,7 +84,7 @@ export {
   fillBlock,
   findIndices,
   getChances,
-  getChosenAnswer,
+  pickRandom,
   getLettersBlock,
   handleBackspace,
   isEnterPressed,

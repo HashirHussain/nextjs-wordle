@@ -1,8 +1,9 @@
 "use client";
 
-import { JSX, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Alert from "./components/Alert";
 import CTA from "./components/CTA";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import KeyBoard from "./components/KeyBoard";
 import PlayBoard from "./components/PlayBoard";
@@ -10,17 +11,16 @@ import {
   CHANCE_LIMIT,
   KEYBOARD_EVENT,
   blocksValueType,
-  getChosenAnswer,
   isAlphabetPressed,
   isDeletedPressed,
   isEnterPressed,
+  pickRandom,
 } from "./lib";
 
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const [lettersLimit, setLettersLimit] = useState<number>(4);
-  const [chanceLimit, setChanceLimit] = useState<number>(6);
   const [correctAnswer, setCorrectAnswer] = useState<string>(
-    getChosenAnswer(wordsList)
+    pickRandom(wordsList)
   );
   const [alertMessage, setAlertMessage] = useState<any>(null);
   const [grid, setGrid] = useState<blocksValueType>([]); // Holds letters while key press
@@ -106,14 +106,18 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
         <span className="uppercase tracking-widest">{correctAnswer}</span>
       );
     }
+    setGameEnd(true);
   };
 
   const resetGame = () => {
     setCurrentRow(0);
-    setCorrectAnswer(getChosenAnswer(wordsList));
+    setCorrectAnswer(pickRandom(wordsList));
     setTempWord([]);
     setGrid([]);
     setGameEnd(false);
+    setAlertMessage(
+      <span className="uppercase tracking-widest">{'Guess the first word!'}</span>
+    );
   };
 
   useEffect(() => {
@@ -139,12 +143,12 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     };
   }, []);
 
-  console.log("correctAnswer", correctAnswer);
-
   return (
     <>
-      <Header />
-      <div className="flex flex-col justify-center items-center gap-10">
+      <div className="flex flex-col justify-center items-center">
+        {alertMessage && <Alert>{alertMessage}</Alert>}
+        <Header />
+        {/* <HowTo /> */}
         <PlayBoard
           grid={grid}
           currentRow={currentRow}
@@ -158,7 +162,8 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
           grid={grid}
         />
         <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
-        {alertMessage && <Alert>{alertMessage}</Alert>}
+        {/* <Modal /> */}
+        <Footer />
       </div>
     </>
   );
