@@ -2,9 +2,11 @@ import { useState } from "react";
 import { FaQuestion } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import HowTo from "./HowTo";
+import Settings from "./Settings";
 
 export default function Header() {
     const [showHowTo, setShowHowTo] = useState(false);
+    const [showSettings, setShowSettings] = useState(false);
     return (
         <>
             <header className="text-gray-600 body-font">
@@ -21,6 +23,7 @@ export default function Header() {
                     <button
                         type="button"
                         title="how to play"
+                        onClick={() => setShowSettings(true)}
                         className="inline-flex items-center bg-gray-100 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
                     >
                         <FiSettings />
@@ -28,6 +31,7 @@ export default function Header() {
                 </div>
             </header>
             {showHowTo && <HowTo onClose={() => setShowHowTo(false)} />}
+            {showSettings && <Settings onClose={() => setShowSettings(false)} />}
         </>
     );
 }
