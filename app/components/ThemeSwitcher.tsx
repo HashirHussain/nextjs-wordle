@@ -30,56 +30,27 @@ const ThemeSwitcher = () => {
 
     return (
         <>
-            <button
-                type="button"
-                title={"Theme switcher"}
-                onClick={() => setShowList(!showList)}
-            >
-                {CurrentIcon(theme)}
-            </button>
-            {showList && (
-                <ul
-                    className={`absolute z-50 top-6 bg-white rounded-lg ring-1 ring-slate-900/10 shadow-lg overflow-hidden w-36 py-1 text-sm text-slate-700 font-semibold dark:bg-slate-800 dark:ring-0 dark:highlight-white/5 dark:text-slate-300 mt-8`}
-                    role="listbox"
-                    title="theme switcher list"
-                    aria-orientation="vertical"
-                    tabIndex={-1}
+            <div className="relative">
+                <select
+                    title="theme selector"
+                    className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-2 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="theme-state"
+                    onChange={(e) => setTheme(e.target.value)}
                 >
-                    <li
-                        className={`py-1 px-2 flex items-center cursor-pointer ${theme === "light" ? "text-sky-500" : ""
-                            }`}
-                        tabIndex={-1}
-                        role="option"
-                        aria-selected="false"
-                        onClick={() => setTheme("light")}
+                    <option value={"light"}>Light</option>
+                    <option value={"dark"}>Dark</option>
+                    <option value={"system"}>System</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg
+                        className="fill-current h-4 w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
                     >
-                        <FiSun className={"mr-2"} />
-                        <span>Light</span>
-                    </li>
-                    <li
-                        className={`py-1 px-2 flex items-center cursor-pointer ${theme === "dark" ? "text-sky-500" : ""
-                            }`}
-                        tabIndex={-1}
-                        role="option"
-                        aria-selected="false"
-                        onClick={() => setTheme("dark")}
-                    >
-                        <FiMoon className={"mr-2"} />
-                        <span>Dark</span>
-                    </li>
-                    <li
-                        className={`py-1 px-2 flex items-center cursor-pointer ${theme === "system" ? "text-sky-500" : ""
-                            }`}
-                        tabIndex={-1}
-                        role="option"
-                        aria-selected="false"
-                        onClick={() => setTheme("system")}
-                    >
-                        <FiMonitor className={"mr-2"} />
-                        <span>System</span>
-                    </li>
-                </ul>
-            )}
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                </div>
+            </div>
         </>
     );
 };

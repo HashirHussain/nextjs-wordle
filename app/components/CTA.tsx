@@ -8,7 +8,7 @@ type Props = {
 
 export default function CTA({ onRestart, onGiveUp }: Props) {
     return (
-        <div className="flex">
+        <div className="flex mt-5">
             <button
                 type="button"
                 tabIndex={-1}

@@ -1,3 +1,5 @@
+const CHANCE_LIMIT = 6;
+const DEFAULT_LETTER_LIMIT = 4;
 const ALPHABETS = [
   ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
   ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
@@ -6,10 +8,11 @@ const ALPHABETS = [
 const KEYBOARD_EVENT = "keyup";
 const ENTER_KEY = "enter";
 const BACKSPACE_KEY = "backspace";
+const DELETE_KEY = "delete";
 
 type blocksValueType = Array<Array<string>>;
 
-const getChosenAnswer = (list: Array<string>) => {
+const pickRandom = (list: Array<string>) => {
   return list[Math.floor(Math.random() * list.length)];
 };
 
@@ -21,8 +24,8 @@ const getLettersBlock = (count: number) => {
   return Array(count).fill("");
 };
 
-const hasEnterTriggered = (_key: string) => {
-  return _key === ENTER_KEY;
+const isEnterPressed = (_key: string) => {
+  return _key.toLowerCase() === ENTER_KEY;
 };
 
 const handleBackspace = (values: blocksValueType, selectedRow: number) => {
@@ -64,6 +67,16 @@ const findIndices = (arr: any, value: any) => {
   return arr.map((e: any, i: number) => (e === value ? i : "")).filter(String);
 };
 
+const isAlphabetPressed = (key: string) => {
+  return ALPHABETS.flat().indexOf(key.toLowerCase()) !== -1;
+};
+
+const isDeletedPressed = (key: string) => {
+  return (
+    key.toLowerCase() === BACKSPACE_KEY || key.toLowerCase() === DELETE_KEY
+  );
+};
+
 export {
   ALPHABETS,
   BACKSPACE_KEY,
@@ -71,11 +84,14 @@ export {
   fillBlock,
   findIndices,
   getChances,
-  getChosenAnswer,
+  pickRandom,
   getLettersBlock,
   handleBackspace,
-  hasEnterTriggered,
+  isEnterPressed,
   KEYBOARD_EVENT,
   unique,
+  CHANCE_LIMIT,
+  isAlphabetPressed,
+  isDeletedPressed,
 };
 export type { blocksValueType };

@@ -1,66 +1,56 @@
 import { FiArrowLeft, FiCornerDownLeft } from "react-icons/fi";
-import { ALPHABETS, blocksValueType } from "../lib";
+import { ALPHABETS, blocksValueType, findIndices } from "../lib";
 
 const keyStyle = `flex grow shrink basis-px
 items-center justify-center
 px-3 py-1 sm:py-2
-font-semibold text-gray-800
+font-semibold text-base 
 bg-gray-100 active:bg-gray-200
-dark:text-gray-50 dark:bg-gray-700
 border border-gray-200 hover:border-gray-300 active:border-gray-400
 rounded-md
 uppercase
 cursor-pointer
 select-none`;
 
-//dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500
+const correctKeyStyle = `${keyStyle} bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-white`;
+const incorrectKey = `${keyStyle} bg-gray-400 dark:bg-gray-400 text-white`;
+const misplacedKeyStyle = `${keyStyle} bg-amber-500 border-amber-500 dark:bg-amber-500 dark:border-amber-500 text-white`;
 
 const getKeyStyle = (
-    submittedWords: blocksValueType,
-    correctAnswer: string,
-    key: string
+    key: string,
+    grid: blocksValueType,
+    correctAnswer: string
 ) => {
-    if (submittedWords.length) {
-        const keyIndex = submittedWords.flat().indexOf(key);
-        if (keyIndex === -1 && correctAnswer.indexOf(key) === -1) {
-            //untouched key
-            return keyStyle; //default style
-        }
-
-        if (keyIndex !== -1 && correctAnswer.indexOf(key) === -1) {
-            // not the correct key
-            return `${keyStyle} bg-gray-400 dark:bg-gray-400 text-gray-50`;
-        }
-
-        if (keyIndex !== -1 && correctAnswer.indexOf(key) !== -1) {
-            const allPositionsOfKey = submittedWords
-                .map((item: Array<string>) => {
-                    return item.indexOf(key);
-                })
-                .filter((item: number) => item !== -1);
-            if (allPositionsOfKey.indexOf(correctAnswer.indexOf(key)) !== -1) {
-                //present at correct place
-                return `${keyStyle} bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
-            }
-            // present at different place
-            return `${keyStyle} bg-amber-400 border-amber-400 dark:bg-amber-400 dark:border-amber-400 text-gray-50`;
-        }
+    if (grid.flat().indexOf(key) === -1) {
+        return keyStyle; //untouched key - default style
     }
 
-    return keyStyle; //default style
+    if (correctAnswer.indexOf(key) === -1) {
+        return incorrectKey;
+    }
+
+    const pos = findIndices(correctAnswer.split(""), key);
+    const currPoss = grid.map((item) => findIndices(item, key)).flat();
+    const onCorrectPosition = currPoss.join("").indexOf(pos.join(""));
+
+    if (onCorrectPosition > -1) {
+        return correctKeyStyle;
+    }
+
+    return misplacedKeyStyle;
 };
 
-export default function Keyboard({
+export default function KeyBoard({
     onKeyboardClick,
     correctAnswer,
-    submittedWords,
+    grid,
 }: {
     onKeyboardClick: (arg0: string) => void;
     correctAnswer: string;
-    submittedWords: blocksValueType;
+    grid: blocksValueType;
 }) {
     return (
-        <div className="flex flex-col justify-center items-center gap-1">
+        <div className="flex flex-col justify-center items-center gap-1 mt-5">
             <div className="flex flex-row justify-stretch gap-x-1">
                 {ALPHABETS[0].map((key: string, index: number) => {
                     return (
@@ -68,7 +58,7 @@ export default function Keyboard({
                             type="button"
                             tabIndex={-1}
                             key={`key - ${key} -${index} `}
-                            className={getKeyStyle(submittedWords, correctAnswer, key)}
+                            className={getKeyStyle(key, grid, correctAnswer)}
                             onClick={() => onKeyboardClick(key)}
                         >
                             {key}
@@ -83,7 +73,7 @@ export default function Keyboard({
                             type="button"
                             tabIndex={-1}
                             key={`key - ${key} -${index} `}
-                            className={getKeyStyle(submittedWords, correctAnswer, key)}
+                            className={getKeyStyle(key, grid, correctAnswer)}
                             onClick={() => onKeyboardClick(key)}
                         >
                             {key}
@@ -108,7 +98,7 @@ export default function Keyboard({
                             type="button"
                             tabIndex={-1}
                             key={`key - ${key} -${index} `}
-                            className={getKeyStyle(submittedWords, correctAnswer, key)}
+                            className={getKeyStyle(key, grid, correctAnswer)}
                             onClick={() => onKeyboardClick(key)}
                         >
                             {key}
