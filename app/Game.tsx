@@ -20,7 +20,7 @@ import {
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const [lettersLimit, setLettersLimit] = useState<number>(4);
   const [correctAnswer, setCorrectAnswer] = useState<string>(
-    pickRandom(wordsList)
+    pickRandom(wordsList, lettersLimit)
   );
   const [alertMessage, setAlertMessage] = useState<any>(null);
   const [grid, setGrid] = useState<blocksValueType>([]); // Holds letters while key press
@@ -111,14 +111,20 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
 
   const resetGame = () => {
     setCurrentRow(0);
-    setCorrectAnswer(pickRandom(wordsList));
     setTempWord([]);
     setGrid([]);
+    setCorrectAnswer(pickRandom(wordsList, lettersLimit));
     setGameEnd(false);
     setAlertMessage(
-      <span className="uppercase tracking-widest">{'Guess the first word!'}</span>
+      <span className="uppercase tracking-widest">
+        {"Guess the first word!"}
+      </span>
     );
   };
+
+  useEffect(() => {
+    setCorrectAnswer(pickRandom(wordsList, lettersLimit));
+  }, [lettersLimit, wordsList]);
 
   useEffect(() => {
     let timeoutId: string | number | NodeJS.Timeout | undefined;
@@ -143,11 +149,19 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     };
   }, []);
 
+  console.log('Correct answer --->', correctAnswer);
+
   return (
     <>
       <div className="flex flex-col justify-center items-center">
         {alertMessage && <Alert>{alertMessage}</Alert>}
-        <Header />
+        <Header
+          lettersLimit={lettersLimit}
+          onLettersLimitChange={(limit) => {
+            setLettersLimit(limit);
+            resetGame();
+          }}
+        />
         <PlayBoard
           grid={grid}
           currentRow={currentRow}

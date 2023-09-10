@@ -37,7 +37,7 @@ export default function HowTo({ onClose }: Props) {
                                             <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50">
                                                 C
                                             </div>
-                                            <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-white">
+                                            <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                 O
                                             </div>
                                             <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50">
@@ -65,7 +65,7 @@ export default function HowTo({ onClose }: Props) {
                                                 <p className="ml-2 text-sm">{`is in the word but in the wrong spot.`}</p>
                                             </div>
                                             <div className="flex items-center text-left">
-                                                <span className="h-7 w-7 sm:w-7 sm:h-7 grid place-items-center p-0 m-0 font-bold border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-white">
+                                                <span className="h-7 w-7 sm:w-7 sm:h-7 grid place-items-center p-0 m-0 font-bold border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     O
                                                 </span>
                                                 <p className="ml-2 text-sm">{` is in the word and in the correct spot.`}</p>
@@ -79,28 +79,28 @@ export default function HowTo({ onClose }: Props) {
                                                 <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50">
                                                     M
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-white">
+                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     I
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-white">
+                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     L
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-white">
+                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     K
                                                 </div>
                                             </div>
                                             <p className="my-2 text-sm">{` so close.`}</p>
                                             <div className="flex gap-x-1">
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-white">
+                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     S
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-white">
+                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     I
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-white">
+                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     L
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-white">
+                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     K
                                                 </div>
                                             </div>
@@ -116,7 +116,7 @@ export default function HowTo({ onClose }: Props) {
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="inline-flex w-full justify-center rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 sm:ml-3 sm:w-auto"
+                                className="inline-flex w-full justify-center rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-gray-50 shadow-sm hover:bg-sky-500 sm:ml-3 sm:w-auto"
                             >
                                 Close
                             </button>

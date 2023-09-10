@@ -1,5 +1,5 @@
 import Game from "./Game";
-import data from "./data/four-letter-words.json";
+import data from "./data/word-bank.json";
 
 export default async function Home() {
   const data: { wordsList: Array<string> } = await getData();

@@ -12,8 +12,9 @@ const DELETE_KEY = "delete";
 
 type blocksValueType = Array<Array<string>>;
 
-const pickRandom = (list: Array<string>) => {
-  return list[Math.floor(Math.random() * list.length)];
+const pickRandom = (list: Array<string>, limit: number) => {
+  const _list = list.filter((item) => item.length === limit);
+  return _list[Math.floor(Math.random() * _list.length)];
 };
 
 const getChances = (count: number) => {

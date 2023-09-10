@@ -12,9 +12,9 @@ uppercase
 cursor-pointer
 select-none`;
 
-const correctKeyStyle = `${keyStyle} bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-white`;
-const incorrectKey = `${keyStyle} bg-gray-400 dark:bg-gray-400 text-white`;
-const misplacedKeyStyle = `${keyStyle} bg-amber-500 border-amber-500 dark:bg-amber-500 dark:border-amber-500 text-white`;
+const correctKeyStyle = `${keyStyle} bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
+const incorrectKey = `${keyStyle} bg-gray-400 dark:bg-gray-400 text-gray-50`;
+const misplacedKeyStyle = `${keyStyle} bg-amber-500 border-amber-500 dark:bg-amber-500 dark:border-amber-500 text-gray-50`;
 
 const getKeyStyle = (
     key: string,

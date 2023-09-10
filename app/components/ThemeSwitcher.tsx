@@ -30,7 +30,31 @@ const ThemeSwitcher = () => {
 
     return (
         <>
-            <div className="relative">
+            <button
+                type="button"
+                title="light"
+                onClick={() => setTheme("light")}
+                className="inline-flex items-center bg-gray-100 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+            >
+                <FiSun />
+            </button>
+            <button
+                type="button"
+                title="dark"
+                onClick={() => setTheme("dark")}
+                className="inline-flex items-center bg-gray-100 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+            >
+                <FiMoon />
+            </button>
+            <button
+                type="button"
+                title="auto"
+                onClick={() => setTheme("system")}
+                className="inline-flex items-center bg-gray-100 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+            >
+                <FiMonitor />
+            </button>
+            {/* <div className="relative">
                 <select
                     title="theme selector"
                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-2 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -50,7 +74,7 @@ const ThemeSwitcher = () => {
                         <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                     </svg>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };
