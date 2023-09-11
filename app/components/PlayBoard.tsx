@@ -1,7 +1,6 @@
 import {
   CHANCE_LIMIT,
   blocksValueType,
-  findIndices,
   getChances,
   getLettersBlock,
 } from "../lib";
@@ -52,7 +51,7 @@ export default function PlayBoard({
                 return (
                   <div
                     key={`block-${rowIndex}-${blockIndex}`}
-                    className={baseBlockStyle}
+                    className={`${baseBlockStyle} dark:text-gray-50`}
                   >
                     {tempWord[blockIndex]}
                   </div>

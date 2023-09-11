@@ -174,7 +174,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
           correctAnswer={correctAnswer}
           grid={grid}
         />
-        <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
+        {grid.flat().length > 0 ? <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} /> : null}
         <Footer />
       </div>
     </>
