@@ -18,7 +18,7 @@ import {
 } from "./lib";
 
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
-  const [lettersLimit, setLettersLimit] = useState<number>(4);
+  const [lettersLimit, setLettersLimit] = useState<number>(5);
   const [correctAnswer, setCorrectAnswer] = useState<string>(
     pickRandom(wordsList, lettersLimit)
   );

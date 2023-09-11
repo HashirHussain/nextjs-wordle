@@ -14,6 +14,7 @@ type blocksValueType = Array<Array<string>>;
 
 const pickRandom = (list: Array<string>, limit: number) => {
   const _list = list.filter((item) => item.length === limit);
+  return "muggy"
   return _list[Math.floor(Math.random() * _list.length)];
 };
 
