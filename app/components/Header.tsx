@@ -20,16 +20,17 @@ export default function Header({ lettersLimit, onLettersLimitChange }: Props) {
                         type="button"
                         title="how to play"
                         onClick={() => setShowHowTo(true)}
-                        className="inline-flex items-center bg-gray-100 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+                        className="inline-flex items-center bg-gray-100 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 dark:bg-gray-500 dark:text-white rounded text-base mt-4 md:mt-0"
                     >
                         <FaQuestion />
                     </button>
-                    <h4 className="uppercase tracking-widest">Wordle</h4>
+                    <h4 className="uppercase tracking-widest dark:text-white">Wordle</h4>
                     <button
                         type="button"
                         title="how to play"
-                        onClick={() => setShowSettings(true)}
-                        className="inline-flex items-center bg-gray-100 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+                        data-modal-target="setting-modal"
+                        onClick={() => setShowSettings(!showSettings)}
+                        className="inline-flex items-center bg-gray-100 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 dark:bg-gray-500 dark:text-gray-50 rounded text-base mt-4 md:mt-0"
                     >
                         <FiSettings />
                     </button>

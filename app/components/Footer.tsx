@@ -9,7 +9,7 @@ export default function Footer() {
                     title="github link"
                     rel="noopener"
                     href="https://github.com/HashirHussain/nextjs-wordle/"
-                    className="mr-5 hover:text-gray-900 text-xl cursor-pointer"
+                    className="mr-5 hover:text-gray-900 dark:text-gray-50 text-xl cursor-pointer"
                     target="_blank"
                 >
                     <FaGithub />
@@ -18,7 +18,7 @@ export default function Footer() {
                     title="linkedIn link"
                     rel="noopener"
                     href="https://www.linkedin.com/in/hashir-hussain/"
-                    className="mr-5 hover:text-sky-700 text-xl cursor-pointer"
+                    className="mr-5 hover:text-sky-700 dark:text-gray-50 text-xl cursor-pointer"
                     target="_blank"
                 >
                     <FaLinkedin />
@@ -27,7 +27,7 @@ export default function Footer() {
                     title="personal portfolio"
                     rel="noopener"
                     href="http://hashirhussain.com/"
-                    className="mr-5 hover:text-sky-900 text-xl cursor-pointer"
+                    className="mr-5 hover:text-sky-900 dark:text-gray-50 text-xl cursor-pointer"
                     target="_blank"
                 >
                     <FaLink />

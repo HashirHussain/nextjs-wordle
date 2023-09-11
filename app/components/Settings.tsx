@@ -35,12 +35,9 @@ export default function Settings({ onClose, lettersLimit, onLettersLimitChange }
                         <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                    <h1
-                                        className="font-semibold leading-6 text-gray-600 text-2xl"
-                                        id="modal-title"
-                                    >
-                                        Settings
-                                    </h1>
+                                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Terms of Service
+                                    </h3>
                                     <div className="flex flex-col w-full justify-center items-center">
                                         <div className="mt-3 flex flex-col">
                                             <h1 className="text-1xl">Number of letters</h1>
@@ -94,7 +91,7 @@ export default function Settings({ onClose, lettersLimit, onLettersLimitChange }
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="inline-flex w-full justify-center rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-gray-50 shadow-sm hover:bg-sky-500 sm:ml-3 sm:w-auto"
+                                className="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-10 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
                             >
                                 Close
                             </button>

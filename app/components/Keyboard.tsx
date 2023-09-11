@@ -5,13 +5,13 @@ const keyStyle = `flex grow shrink basis-px
 items-center justify-center
 px-3 py-1 sm:py-2
 font-semibold text-base 
-bg-gray-100 active:bg-gray-200
-border border-gray-200 hover:border-gray-300 active:border-gray-400
 rounded-md
 uppercase
 cursor-pointer
 select-none`;
 
+
+const defaultStyle = `${keyStyle} text-gray-800 bg-gray-100 border border-gray-200 dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500`;
 const correctKeyStyle = `${keyStyle} bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
 const incorrectKey = `${keyStyle} bg-gray-400 dark:bg-gray-400 text-gray-50`;
 const misplacedKeyStyle = `${keyStyle} bg-amber-500 border-amber-500 dark:bg-amber-500 dark:border-amber-500 text-gray-50`;
@@ -22,7 +22,7 @@ const getKeyStyle = (
     correctAnswer: string
 ) => {
     if (grid.flat().indexOf(key) === -1) {
-        return keyStyle; //untouched key - default style
+        return defaultStyle//untouched key - default style
     }
 
     if (correctAnswer.indexOf(key) === -1) {
@@ -85,7 +85,7 @@ export default function KeyBoard({
                 <button
                     type="button"
                     tabIndex={-1}
-                    className={keyStyle}
+                    className={defaultStyle}
                     onClick={() => onKeyboardClick("Backspace")}
                 >
                     {"  "}
@@ -108,7 +108,7 @@ export default function KeyBoard({
                 <button
                     type="button"
                     tabIndex={-1}
-                    className={keyStyle}
+                    className={defaultStyle}
                     onClick={() => onKeyboardClick("Enter")}
                 >
                     {"  "}

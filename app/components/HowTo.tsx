@@ -116,7 +116,7 @@ export default function HowTo({ onClose }: Props) {
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="inline-flex w-full justify-center rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-gray-50 shadow-sm hover:bg-sky-500 sm:ml-3 sm:w-auto"
+                                className="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-10 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
                             >
                                 Close
                             </button>
