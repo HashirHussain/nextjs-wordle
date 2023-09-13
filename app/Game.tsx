@@ -15,11 +15,26 @@ import {
   isAlphabetPressed,
   isDeletedPressed,
   isEnterPressed,
-  pickRandom
+  pickRandom,
 } from "./lib";
 
+const alertMessages = {
+  GUESS_FIRST_WORD: (
+    <span className="tracking-widest">{"Guess the first word!"}</span>
+  ),
+  GAME_END: <span>{"Game End! Press restart to begin."}</span>,
+  YOU_WON: <span>{"You Won"}</span>,
+  WORD_NOT_FOUND: <span>{"Word not found"}</span>,
+  YOU_LOST: (word: string) => (
+    <span>
+      {"You lost! Correct word was"} <span className="uppercase">{word}</span>{" "}
+    </span>
+  ),
+};
+
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
-  const [lettersLimit, setLettersLimit] = useState<number>(DEFAULT_LETTER_LIMIT);
+  const [lettersLimit, setLettersLimit] =
+    useState<number>(DEFAULT_LETTER_LIMIT);
   const [correctAnswer, setCorrectAnswer] = useState<string>(
     pickRandom(wordsList, lettersLimit)
   );
@@ -32,7 +47,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   function keyPressHandler(key: string) {
     setAlertMessage(null); // Hide alert box immediately after key press
     if (gameEnd) {
-      setAlertMessage(<span>{"Game End! Press restart to begin."}</span>);
+      setAlertMessage(alertMessages.GAME_END);
       return;
     }
     if (currentRow === CHANCE_LIMIT) {
@@ -52,7 +67,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
       const value = tempWord;
       if (value.length === lettersLimit) {
         if (wordsList.indexOf(value.join("")) === -1) {
-          setAlertMessage(<span>{"Not in word list"}</span>);
+          setAlertMessage(alertMessages.WORD_NOT_FOUND);
           return;
         }
         if (value.join("") === correctAnswer) {
@@ -60,13 +75,13 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
           setTempWord([]);
           grid[currentRow] = [...value];
           setGrid([...grid]);
-          setAlertMessage(<span>{"You Won"}</span>);
+          setAlertMessage(alertMessages.YOU_WON);
           setGameEnd(true);
           return;
         }
         if (currentRow + 1 === CHANCE_LIMIT) {
           // This was the final enter press
-          setAlertMessage(<span>{"You lost"}</span>);
+          setAlertMessage(alertMessages.YOU_LOST(correctAnswer));
           setGameEnd(true);
         }
         setTempWord([]);
@@ -100,10 +115,12 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   };
 
   const onGiveUpHandler = (e: any) => {
-    if (grid.flat().length) {
+    if (grid.flat().length && gameEnd === false) {
       setAlertMessage(
         <span className="uppercase tracking-widest">{correctAnswer}</span>
       );
+    } else {
+      setAlertMessage(<span>{"Game End! Press restart to begin."}</span>);
     }
     setGameEnd(true);
   };
@@ -114,11 +131,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     setGrid([]);
     setCorrectAnswer(pickRandom(wordsList, lettersLimit));
     setGameEnd(false);
-    setAlertMessage(
-      <span className="uppercase tracking-widest">
-        {"Guess the first word!"}
-      </span>
-    );
+    setAlertMessage(alertMessages.GUESS_FIRST_WORD);
   };
 
   useEffect(() => {
@@ -148,7 +161,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     };
   }, []);
 
-  console.log('Correct answer --->', correctAnswer);
+  console.log("Correct answer --->", correctAnswer);
 
   return (
     <>
@@ -173,7 +186,9 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
           correctAnswer={correctAnswer}
           grid={grid}
         />
-        {grid.flat().length > 0 ? <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} /> : null}
+        {grid.flat().length > 0 ? (
+          <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
+        ) : null}
         <Footer />
       </div>
     </>
