@@ -9,16 +9,17 @@ import KeyBoard from "./components/Keyboard";
 import PlayBoard from "./components/PlayBoard";
 import {
   CHANCE_LIMIT,
+  DEFAULT_LETTER_LIMIT,
   KEYBOARD_EVENT,
   blocksValueType,
   isAlphabetPressed,
   isDeletedPressed,
   isEnterPressed,
-  pickRandom,
+  pickRandom
 } from "./lib";
 
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
-  const [lettersLimit, setLettersLimit] = useState<number>(5);
+  const [lettersLimit, setLettersLimit] = useState<number>(DEFAULT_LETTER_LIMIT);
   const [correctAnswer, setCorrectAnswer] = useState<string>(
     pickRandom(wordsList, lettersLimit)
   );
@@ -85,12 +86,10 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     }
   }
 
-  /*Fresh --- END*/
-
-  const KeyUpHandler = (event: {
-    key: string;
-    stopPropagation: () => void;
-  }) => {
+  const KeyUpHandler = (event: any) => {
+    if (event.ctrlKey) {
+      return;
+    }
     const key = event.key;
     event.stopPropagation();
     keyPressHandler(key);

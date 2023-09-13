@@ -14,7 +14,7 @@ type blocksValueType = Array<Array<string>>;
 
 const pickRandom = (list: Array<string>, limit: number) => {
   const _list = list.filter((item) => item.length === limit);
-  return "muggy"
+  // return "muggy"
   return _list[Math.floor(Math.random() * _list.length)];
 };
 
@@ -34,28 +34,6 @@ const handleBackspace = (values: blocksValueType, selectedRow: number) => {
   const currentValue = values[selectedRow];
   currentValue.pop();
   values[selectedRow] = [...currentValue];
-  return values;
-};
-
-const fillBlock = (
-  key: string,
-  values: blocksValueType,
-  selectedRow: number,
-  lettersLimit: number
-) => {
-  if (values.length === selectedRow) {
-    return values;
-  }
-  if (values[selectedRow].length === lettersLimit) {
-    return values;
-  }
-  if (ALPHABETS.flat().indexOf(key) !== -1) {
-    const row = [...values[selectedRow]];
-    row.push(key);
-    const newValue = values;
-    newValue[selectedRow] = [...row];
-    return newValue;
-  }
   return values;
 };
 
@@ -80,10 +58,10 @@ const isDeletedPressed = (key: string) => {
 };
 
 export {
+  DEFAULT_LETTER_LIMIT,
   ALPHABETS,
   BACKSPACE_KEY,
   ENTER_KEY,
-  fillBlock,
   findIndices,
   getChances,
   pickRandom,
