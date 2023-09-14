@@ -34,16 +34,16 @@ export default function HowTo({ onClose }: Props) {
                                             To start the game, just enter any word, for example:
                                         </p>
                                         <div className="flex gap-x-1 mt-3">
-                                            <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50">
+                                            <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50">
                                                 C
                                             </div>
-                                            <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
+                                            <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                 O
                                             </div>
-                                            <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50">
+                                            <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50">
                                                 L
                                             </div>
-                                            <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-amber-400 border-amber-400 dark:bg-amber-400 dark:border-amber-400 text-gray-50">
+                                            <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-amber-400 border-amber-400 dark:bg-amber-400 dark:border-amber-400 text-gray-50">
                                                 D
                                             </div>
                                         </div>
@@ -76,31 +76,31 @@ export default function HowTo({ onClose }: Props) {
                                                 Another try to find matching letters in the target word.
                                             </p>
                                             <div className="flex gap-x-1 mt-3">
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50">
+                                                <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50">
                                                     M
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
+                                                <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     I
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
+                                                <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     L
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
+                                                <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     K
                                                 </div>
                                             </div>
                                             <p className="my-2 text-sm dark:text-gray-300">{` so close.`}</p>
                                             <div className="flex gap-x-1 ">
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
+                                                <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     S
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
+                                                <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     I
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
+                                                <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     L
                                                 </div>
-                                                <div className="h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
+                                                <div className="h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50">
                                                     K
                                                 </div>
                                             </div>
