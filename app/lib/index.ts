@@ -1,5 +1,4 @@
 const CHANCE_LIMIT = 6;
-const DEFAULT_LETTER_LIMIT = 4;
 const ALPHABETS = [
   ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
   ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
@@ -17,11 +16,8 @@ const pickRandom = (list: Array<string>, limit: number) => {
   return _list[Math.floor(Math.random() * _list.length)];
 };
 
-const getChances = (count: number) => {
-  return Array(count).fill("");
-};
 
-const getLettersBlock = (count: number) => {
+const generateBlankArray = (count: number) => {
   return Array(count).fill("");
 };
 
@@ -57,20 +53,10 @@ const isDeletedPressed = (key: string) => {
 };
 
 export {
-  DEFAULT_LETTER_LIMIT,
   ALPHABETS,
-  BACKSPACE_KEY,
-  ENTER_KEY,
-  findIndices,
-  getChances,
-  pickRandom,
-  getLettersBlock,
-  handleBackspace,
-  isEnterPressed,
-  KEYBOARD_EVENT,
-  unique,
-  CHANCE_LIMIT,
-  isAlphabetPressed,
-  isDeletedPressed,
+  BACKSPACE_KEY, CHANCE_LIMIT, ENTER_KEY, KEYBOARD_EVENT, findIndices, generateBlankArray,
+  handleBackspace, isAlphabetPressed,
+  isDeletedPressed, isEnterPressed, pickRandom, unique
 };
 export type { blocksValueType };
+

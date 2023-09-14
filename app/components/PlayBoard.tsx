@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
 import {
-  CHANCE_LIMIT,
   blocksValueType,
-  findIndices,
-  getChances,
-  getLettersBlock,
+  generateBlankArray
 } from "../lib";
-import { RootState } from "../redux/store";
+import {
+  chanceLimit as chanceLimitSelector,
+  letterLimit as letterLimitSelector,
+} from "../redux/selectors";
 
 const baseBlockStyle = `h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase`;
 const rightPositionStyle = `animate-[ping_75ms] bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
@@ -27,16 +27,15 @@ export default function PlayBoard({
   correctAnswer,
 }: PropsType) {
 
-  const letterLimit = useSelector(
-    (state: RootState) => state.settings.letterLimit
-  );
+  const letterLimit = useSelector(letterLimitSelector);
+  const chanceLimit = useSelector(chanceLimitSelector);
 
   return (
     <div className="blocks-wrapper flex flex-col gap-y-1 my-2">
-      {getChances(CHANCE_LIMIT).map((_, rowIndex: number) => {
+      {generateBlankArray(chanceLimit).map((_, rowIndex: number) => {
         return (
           <div key={`row-${rowIndex}`} className="flex gap-x-1">
-            {getLettersBlock(letterLimit).map((_, blockIndex: number) => {
+            {generateBlankArray(letterLimit).map((_, blockIndex: number) => {
               if (Array.isArray(grid[rowIndex])) {
                 return grid[rowIndex][blockIndex] ? (
                   <div

@@ -8,7 +8,6 @@ import Header from "./components/Header";
 import KeyBoard from "./components/Keyboard";
 import PlayBoard from "./components/PlayBoard";
 import {
-  CHANCE_LIMIT,
   KEYBOARD_EVENT,
   blocksValueType,
   isAlphabetPressed,
@@ -18,7 +17,10 @@ import {
 } from "./lib";
 
 import { useSelector } from "react-redux";
-import { letterLimit as letterLimitSelector } from "./redux/selectors";
+import {
+  letterLimit as letterLimitSelector,
+  chanceLimit as chanceLimitSelector,
+} from "./redux/selectors";
 
 const alertMessages = {
   GUESS_FIRST_WORD: (
@@ -36,6 +38,7 @@ const alertMessages = {
 
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const letterLimit = useSelector(letterLimitSelector);
+  const chanceLimit = useSelector(chanceLimitSelector);
 
   const [correctAnswer, setCorrectAnswer] = useState<string>(
     pickRandom(wordsList, letterLimit)
@@ -52,7 +55,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
       setAlertMessage(alertMessages.GAME_END);
       return;
     }
-    if (currentRow === CHANCE_LIMIT) {
+    if (currentRow === chanceLimit) {
       // Game has finished already
       return;
     }
@@ -81,7 +84,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
           setGameEnd(true);
           return;
         }
-        if (currentRow + 1 === CHANCE_LIMIT) {
+        if (currentRow + 1 === chanceLimit) {
           // This was the final enter press
           setAlertMessage(alertMessages.YOU_LOST(correctAnswer));
           setGameEnd(true);
@@ -138,7 +141,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
 
   useEffect(() => {
     resetGame();
-  }, [letterLimit, wordsList]);
+  }, [letterLimit, wordsList, chanceLimit]);
 
   useEffect(() => {
     let timeoutId: string | number | NodeJS.Timeout | undefined;

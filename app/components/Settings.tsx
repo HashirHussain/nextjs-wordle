@@ -1,8 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import ThemeSwitcher from "./ThemeSwitcher";
 
-import { letterLimit as letterLimitSelector } from "../redux/selectors";
-import { updateLetterLimit } from "../redux/settings-reducer";
+import {
+    letterLimit as letterLimitSelector,
+    chanceLimit as chanceLimitSelector,
+} from "../redux/selectors";
+import {
+    updateLetterLimit,
+    updateChanceLimit,
+} from "../redux/settings-reducer";
 
 const selectedClass = (letterLimit: number, current: number | undefined) => {
     if (current && letterLimit === current) {
@@ -39,6 +45,7 @@ const LimitButton = ({
 
 export default function Settings({ onClose }: { onClose: () => void }) {
     const letterLimit: number = useSelector(letterLimitSelector);
+    const chanceLimit = useSelector(chanceLimitSelector);
 
     const dispatch = useDispatch();
     return (
@@ -53,43 +60,55 @@ export default function Settings({ onClose }: { onClose: () => void }) {
                 <div className="flex sm:min-h-full justify-center p-4 text-center sm:items-center sm:p-0">
                     <div className="relative transform overflow-hidden rounded-lg bg-white  text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                         <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 dark:bg-gray-700">
-                            <div className="sm:flex sm:items-start ">
-                                <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                        Settings
-                                    </h3>
-                                    <div className="flex flex-col w-full justify-center items-center">
-                                        <div className="mt-3 flex flex-col">
-                                            <h1 className="text-1xl">Number of letters</h1>
-                                            <div className="flex gap-x-1">
-                                                <LimitButton
-                                                    currentLimit={letterLimit}
-                                                    onClick={(value) =>
-                                                        dispatch(updateLetterLimit(value))
-                                                    }
-                                                    value={4}
-                                                />
-                                                <LimitButton
-                                                    currentLimit={letterLimit}
-                                                    onClick={(value) =>
-                                                        dispatch(updateLetterLimit(value))
-                                                    }
-                                                    value={5}
-                                                />
-                                                <LimitButton
-                                                    currentLimit={letterLimit}
-                                                    onClick={(value) =>
-                                                        dispatch(updateLetterLimit(value))
-                                                    }
-                                                    value={6}
-                                                />
-                                            </div>
+                            <div className="sm:flex sm:items-start flex-col">
+                                <h3 className="text-xl font-semibold text-gray-900 dark:text-white text-center">
+                                    Settings
+                                </h3>
+                                <div className="flex flex-col w-full">
+                                    <div className="mt-3 flex flex-col">
+                                        <h1 className="text-1xl">Number of letters</h1>
+                                        <div className="flex gap-x-1">
+                                            <LimitButton
+                                                currentLimit={letterLimit}
+                                                onClick={(value) => dispatch(updateLetterLimit(value))}
+                                                value={4}
+                                            />
+                                            <LimitButton
+                                                currentLimit={letterLimit}
+                                                onClick={(value) => dispatch(updateLetterLimit(value))}
+                                                value={5}
+                                            />
+                                            <LimitButton
+                                                currentLimit={letterLimit}
+                                                onClick={(value) => dispatch(updateLetterLimit(value))}
+                                                value={6}
+                                            />
                                         </div>
-                                        <div className="mt-3 flex flex-col">
-                                            <h1 className="text-1xl">Color mode</h1>
-                                            <div className="flex gap-x-1">
-                                                <ThemeSwitcher />
-                                            </div>
+                                    </div>
+                                    <div className="mt-3 flex flex-col">
+                                        <h1 className="text-1xl">Number of chances</h1>
+                                        <div className="flex gap-x-1">
+                                            <LimitButton
+                                                currentLimit={chanceLimit}
+                                                onClick={(value) => dispatch(updateChanceLimit(value))}
+                                                value={6}
+                                            />
+                                            <LimitButton
+                                                currentLimit={chanceLimit}
+                                                onClick={(value) => dispatch(updateChanceLimit(value))}
+                                                value={9}
+                                            />
+                                            <LimitButton
+                                                currentLimit={chanceLimit}
+                                                onClick={(value) => dispatch(updateChanceLimit(value))}
+                                                value={12}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="mt-3 flex flex-col">
+                                        <h1 className="text-1xl">Color mode</h1>
+                                        <div className="flex gap-x-1">
+                                            <ThemeSwitcher />
                                         </div>
                                     </div>
                                 </div>
