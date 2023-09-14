@@ -40,6 +40,9 @@ const alertMessages = {
   ),
   GAME_END: <span>{"Game End! Press restart to begin."}</span>,
   YOU_WON: <span>{"You Won"}</span>,
+  GIVE_UP: (correctWord: string) => (
+    <span className="uppercase tracking-widest">{correctWord}</span>
+  ),
   WORD_NOT_FOUND: <span>{"Word not found"}</span>,
   YOU_LOST: (word: string) => (
     <span>
@@ -129,11 +132,9 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
 
   const onGiveUpHandler = () => {
     if (grid.flat().length && gameEnd === false) {
-      setAlertMessage(
-        <span className="uppercase tracking-widest">{correctWord}</span>
-      );
+      setAlertMessage(alertMessages.GIVE_UP(correctWord));
     } else {
-      setAlertMessage(<span>{"Game End! Press restart to begin."}</span>);
+      setAlertMessage(alertMessages.GAME_END);
     }
     dispatch(setGameEnd(true));
   };
