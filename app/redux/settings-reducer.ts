@@ -15,16 +15,16 @@ export const settingsSlice = createSlice({
     name: "settings",
     initialState,
     reducers: {
-        updateLetterLimit: (state, action: PayloadAction<number>) => {
+        setLetterLimit: (state, action: PayloadAction<number>) => {
             state.letterLimit = action.payload;
         },
-        updateChanceLimit: (state, action: PayloadAction<number>) => {
+        setChanceLimit: (state, action: PayloadAction<number>) => {
             state.chanceLimit = action.payload;
         },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { updateLetterLimit, updateChanceLimit } = settingsSlice.actions;
+export const { setLetterLimit, setChanceLimit } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

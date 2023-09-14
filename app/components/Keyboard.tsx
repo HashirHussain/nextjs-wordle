@@ -1,6 +1,9 @@
 import { FiArrowLeft, FiCornerDownLeft } from "react-icons/fi";
 import { ALPHABETS, gridType, findIndices } from "../lib";
 
+import { correctWord as correctWordSelector } from "../redux/selectors";
+import { useSelector } from "react-redux";
+
 const keyStyle = `flex grow shrink basis-px
 items-center justify-center
 px-3 py-1 sm:py-2
@@ -17,13 +20,12 @@ const misplacedKeyStyle = `${keyStyle} bg-amber-500 border-amber-500 dark:bg-amb
 
 export default function KeyBoard({
     onKeyboardClick,
-    correctAnswer,
     grid,
 }: {
     onKeyboardClick: (arg0: string) => void;
-    correctAnswer: string;
     grid: gridType;
 }) {
+    const correctWord = useSelector(correctWordSelector);
     return (
         <div className="flex flex-col justify-center items-center gap-1 mt-5">
             <div className="flex flex-row justify-stretch gap-x-1">
@@ -33,7 +35,7 @@ export default function KeyBoard({
                             type="button"
                             tabIndex={-1}
                             key={`key - ${key} -${index} `}
-                            className={getKeyStyle(key, grid, correctAnswer)}
+                            className={getKeyStyle(key, grid, correctWord)}
                             onClick={() => onKeyboardClick(key)}
                         >
                             {key}
@@ -48,7 +50,7 @@ export default function KeyBoard({
                             type="button"
                             tabIndex={-1}
                             key={`key - ${key} -${index} `}
-                            className={getKeyStyle(key, grid, correctAnswer)}
+                            className={getKeyStyle(key, grid, correctWord)}
                             onClick={() => onKeyboardClick(key)}
                         >
                             {key}
@@ -73,7 +75,7 @@ export default function KeyBoard({
                             type="button"
                             tabIndex={-1}
                             key={`key - ${key} -${index} `}
-                            className={getKeyStyle(key, grid, correctAnswer)}
+                            className={getKeyStyle(key, grid, correctWord)}
                             onClick={() => onKeyboardClick(key)}
                         >
                             {key}
@@ -95,20 +97,16 @@ export default function KeyBoard({
     );
 }
 
-const getKeyStyle = (
-    key: string,
-    grid: gridType,
-    correctAnswer: string
-) => {
+const getKeyStyle = (key: string, grid: gridType, correctWord: string) => {
     if (grid.flat().indexOf(key) === -1) {
         return defaultStyle; // untouched key - default style
     }
 
-    if (correctAnswer.indexOf(key) === -1) {
+    if (correctWord.indexOf(key) === -1) {
         return incorrectKey; // letter not present at all - dark style
     }
 
-    const pos = findIndices(correctAnswer.split(""), key);
+    const pos = findIndices(correctWord.split(""), key);
     const currPoss = grid.map((item) => findIndices(item, key)).flat();
     const onCorrectPosition = currPoss.join("").indexOf(pos.join(""));
 

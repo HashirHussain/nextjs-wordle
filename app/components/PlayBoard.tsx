@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
-import {
-  gridType,
-  generateBlankArray
-} from "../lib";
+import { gridType, generateBlankArray } from "../lib";
 import {
   chanceLimit as chanceLimitSelector,
   letterLimit as letterLimitSelector,
+  tempWord as tempWordSelector,
+  currentSelectedRow as currentSelectedRowSelector,
+  correctWord as correctWordSelector,
 } from "../redux/selectors";
 
 const baseBlockStyle = `h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase`;
@@ -15,20 +15,14 @@ const noPositionStyle = `bg-gray-500 border-gray-500 dark:bg-gray-500 dark:borde
 
 type PropsType = {
   grid: gridType;
-  currentRow: number;
-  tempWord: Array<string>;
-  correctAnswer: string;
 };
 
-export default function PlayBoard({
-  grid,
-  currentRow,
-  tempWord,
-  correctAnswer,
-}: PropsType) {
-
+export default function PlayBoard({ grid }: PropsType) {
   const letterLimit = useSelector(letterLimitSelector);
   const chanceLimit = useSelector(chanceLimitSelector);
+  const tempWord = useSelector(tempWordSelector);
+  const currentRow = useSelector(currentSelectedRowSelector);
+  const correctWord = useSelector(correctWordSelector);
 
   return (
     <div className="blocks-wrapper flex flex-col gap-y-1 my-2">
@@ -44,7 +38,7 @@ export default function PlayBoard({
                       grid[rowIndex][blockIndex],
                       grid[rowIndex],
                       blockIndex,
-                      correctAnswer
+                      correctWord
                     )}
                   >
                     {grid[rowIndex][blockIndex]}
@@ -76,17 +70,17 @@ const getBlockStyle = (
   letter: string,
   wholeWord: Array<string>,
   keyPosition: number,
-  correctAnswer: PropsType["correctAnswer"]
+  correctWord: string
 ) => {
-  if (correctAnswer[keyPosition] === letter) {
+  if (correctWord[keyPosition] === letter) {
     return `${baseBlockStyle} ${rightPositionStyle}`; // at correct position - Green Color
   }
 
-  if (correctAnswer.indexOf(letter) === -1) {
+  if (correctWord.indexOf(letter) === -1) {
     return `${baseBlockStyle} ${noPositionStyle}`; // not present at all - Dark Color
   }
 
-  if (correctAnswer.indexOf(letter) !== -1) {
+  if (correctWord.indexOf(letter) !== -1) {
     //TODO - write robust logic to show yellow color
     return `${baseBlockStyle} ${wrongPositionStyle}`; // present, but at wrong position - Yellow color
   }

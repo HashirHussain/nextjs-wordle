@@ -1,6 +1,17 @@
 import type { RootState } from "../redux/store";
 
-export const letterLimit = (state: RootState): number => state.settings.letterLimit
+export const letterLimit = (state: RootState): number =>
+    state.settings.letterLimit;
 
-export const chanceLimit = (state: RootState): number => state.settings.chanceLimit
+export const chanceLimit = (state: RootState): number =>
+    state.settings.chanceLimit;
 
+export const gameEnd = (state: RootState): boolean => state.game.gameEnd;
+
+export const currentSelectedRow = (state: RootState): number =>
+    state.game.currentSelectedRow;
+
+export const tempWord = (state: RootState): Array<string> =>
+    state.game.tempWord;
+
+export const correctWord = (state: RootState): string => state.game.correctWord;

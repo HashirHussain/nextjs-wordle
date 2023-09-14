@@ -5,10 +5,7 @@ import {
     letterLimit as letterLimitSelector,
     chanceLimit as chanceLimitSelector,
 } from "../redux/selectors";
-import {
-    updateLetterLimit,
-    updateChanceLimit,
-} from "../redux/settings-reducer";
+import { setLetterLimit, setChanceLimit } from "../redux/settings-reducer";
 
 const selectedClass = (letterLimit: number, current: number | undefined) => {
     if (current && letterLimit === current) {
@@ -70,17 +67,17 @@ export default function Settings({ onClose }: { onClose: () => void }) {
                                         <div className="flex gap-x-1">
                                             <LimitButton
                                                 currentLimit={letterLimit}
-                                                onClick={(value) => dispatch(updateLetterLimit(value))}
+                                                onClick={(value) => dispatch(setLetterLimit(value))}
                                                 value={4}
                                             />
                                             <LimitButton
                                                 currentLimit={letterLimit}
-                                                onClick={(value) => dispatch(updateLetterLimit(value))}
+                                                onClick={(value) => dispatch(setLetterLimit(value))}
                                                 value={5}
                                             />
                                             <LimitButton
                                                 currentLimit={letterLimit}
-                                                onClick={(value) => dispatch(updateLetterLimit(value))}
+                                                onClick={(value) => dispatch(setLetterLimit(value))}
                                                 value={6}
                                             />
                                         </div>
@@ -90,17 +87,17 @@ export default function Settings({ onClose }: { onClose: () => void }) {
                                         <div className="flex gap-x-1">
                                             <LimitButton
                                                 currentLimit={chanceLimit}
-                                                onClick={(value) => dispatch(updateChanceLimit(value))}
+                                                onClick={(value) => dispatch(setChanceLimit(value))}
                                                 value={6}
                                             />
                                             <LimitButton
                                                 currentLimit={chanceLimit}
-                                                onClick={(value) => dispatch(updateChanceLimit(value))}
+                                                onClick={(value) => dispatch(setChanceLimit(value))}
                                                 value={9}
                                             />
                                             <LimitButton
                                                 currentLimit={chanceLimit}
-                                                onClick={(value) => dispatch(updateChanceLimit(value))}
+                                                onClick={(value) => dispatch(setChanceLimit(value))}
                                                 value={12}
                                             />
                                         </div>
