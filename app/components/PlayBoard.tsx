@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import {
-  blocksValueType,
+  gridType,
   generateBlankArray
 } from "../lib";
 import {
@@ -14,7 +14,7 @@ const wrongPositionStyle = `bg-amber-400 border-amber-400 dark:bg-amber-400 dark
 const noPositionStyle = `bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50`;
 
 type PropsType = {
-  grid: blocksValueType;
+  grid: gridType;
   currentRow: number;
   tempWord: Array<string>;
   correctAnswer: string;

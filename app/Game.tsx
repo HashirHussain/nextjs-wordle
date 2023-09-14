@@ -9,7 +9,7 @@ import KeyBoard from "./components/Keyboard";
 import PlayBoard from "./components/PlayBoard";
 import {
   KEYBOARD_EVENT,
-  blocksValueType,
+  gridType,
   isAlphabetPressed,
   isDeletedPressed,
   isEnterPressed,
@@ -44,7 +44,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     pickRandom(wordsList, letterLimit)
   );
   const [alertMessage, setAlertMessage] = useState<any>(null);
-  const [grid, setGrid] = useState<blocksValueType>([]); // Holds letters while key press
+  const [grid, setGrid] = useState<gridType>([]); // Holds letters while key press
   const [tempWord, setTempWord] = useState<Array<string>>([]); // Holds current row letters
   const [currentRow, setCurrentRow] = useState<number>(0);
   const [gameEnd, setGameEnd] = useState<boolean>(false);
@@ -148,7 +148,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     if (alertMessage) {
       timeoutId = setTimeout(() => {
         setAlertMessage(null);
-      }, 1500);
+      }, 2000);
     }
     return () => {
       clearTimeout(timeoutId);
@@ -167,26 +167,24 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   }, []);
 
   return (
-    <>
-      <div className="flex flex-col justify-center items-center">
-        {alertMessage && <Alert>{alertMessage}</Alert>}
-        <Header />
-        <PlayBoard
-          grid={grid}
-          currentRow={currentRow}
-          tempWord={tempWord}
-          correctAnswer={correctAnswer}
-        />
-        <KeyBoard
-          onKeyboardClick={keyPressHandler}
-          correctAnswer={correctAnswer}
-          grid={grid}
-        />
-        {grid.flat().length > 0 ? (
-          <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
-        ) : null}
-        <Footer />
-      </div>
-    </>
+    <div className="flex flex-col justify-center items-center">
+      {alertMessage && <Alert>{alertMessage}</Alert>}
+      <Header />
+      <PlayBoard
+        grid={grid}
+        currentRow={currentRow}
+        tempWord={tempWord}
+        correctAnswer={correctAnswer}
+      />
+      <KeyBoard
+        onKeyboardClick={keyPressHandler}
+        correctAnswer={correctAnswer}
+        grid={grid}
+      />
+      {grid.flat().length > 0 ? (
+        <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
+      ) : null}
+      <Footer />
+    </div>
   );
 }

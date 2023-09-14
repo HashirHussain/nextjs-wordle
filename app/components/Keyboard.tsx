@@ -1,5 +1,5 @@
 import { FiArrowLeft, FiCornerDownLeft } from "react-icons/fi";
-import { ALPHABETS, blocksValueType, findIndices } from "../lib";
+import { ALPHABETS, gridType, findIndices } from "../lib";
 
 const keyStyle = `flex grow shrink basis-px
 items-center justify-center
@@ -22,7 +22,7 @@ export default function KeyBoard({
 }: {
     onKeyboardClick: (arg0: string) => void;
     correctAnswer: string;
-    grid: blocksValueType;
+    grid: gridType;
 }) {
     return (
         <div className="flex flex-col justify-center items-center gap-1 mt-5">
@@ -97,7 +97,7 @@ export default function KeyBoard({
 
 const getKeyStyle = (
     key: string,
-    grid: blocksValueType,
+    grid: gridType,
     correctAnswer: string
 ) => {
     if (grid.flat().indexOf(key) === -1) {
