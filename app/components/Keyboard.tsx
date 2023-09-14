@@ -10,35 +10,10 @@ uppercase
 cursor-pointer
 select-none`;
 
-
 const defaultStyle = `${keyStyle} text-gray-800 bg-gray-100 border border-gray-200 dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500`;
 const correctKeyStyle = `${keyStyle} bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
 const incorrectKey = `${keyStyle} bg-gray-400 dark:bg-gray-400 text-gray-50`;
 const misplacedKeyStyle = `${keyStyle} bg-amber-500 border-amber-500 dark:bg-amber-500 dark:border-amber-500 text-gray-50`;
-
-const getKeyStyle = (
-    key: string,
-    grid: blocksValueType,
-    correctAnswer: string
-) => {
-    if (grid.flat().indexOf(key) === -1) {
-        return defaultStyle//untouched key - default style
-    }
-
-    if (correctAnswer.indexOf(key) === -1) {
-        return incorrectKey;
-    }
-
-    const pos = findIndices(correctAnswer.split(""), key);
-    const currPoss = grid.map((item) => findIndices(item, key)).flat();
-    const onCorrectPosition = currPoss.join("").indexOf(pos.join(""));
-
-    if (onCorrectPosition > -1) {
-        return correctKeyStyle;
-    }
-
-    return misplacedKeyStyle;
-};
 
 export default function KeyBoard({
     onKeyboardClick,
@@ -119,3 +94,27 @@ export default function KeyBoard({
         </div>
     );
 }
+
+const getKeyStyle = (
+    key: string,
+    grid: blocksValueType,
+    correctAnswer: string
+) => {
+    if (grid.flat().indexOf(key) === -1) {
+        return defaultStyle; // untouched key - default style
+    }
+
+    if (correctAnswer.indexOf(key) === -1) {
+        return incorrectKey; // letter not present at all - dark style
+    }
+
+    const pos = findIndices(correctAnswer.split(""), key);
+    const currPoss = grid.map((item) => findIndices(item, key)).flat();
+    const onCorrectPosition = currPoss.join("").indexOf(pos.join(""));
+
+    if (onCorrectPosition > -1) {
+        return correctKeyStyle; // correct letter at right position - green style
+    }
+
+    return misplacedKeyStyle; // correct letter at wrong position - yellow style
+};

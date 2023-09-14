@@ -1,6 +1,7 @@
 import {
   CHANCE_LIMIT,
   blocksValueType,
+  findIndices,
   getChances,
   getLettersBlock,
 } from "../lib";
@@ -68,27 +69,21 @@ export default function PlayBoard({
 }
 
 const getBlockStyle = (
-  key: string,
+  letter: string,
   wholeWord: Array<string>,
   keyPosition: number,
   correctAnswer: PropsType["correctAnswer"]
 ) => {
-  if (correctAnswer[keyPosition] === key) {
+  if (correctAnswer[keyPosition] === letter) {
     return `${baseBlockStyle} ${rightPositionStyle}`; // at correct position - Green Color
   }
 
-  if (correctAnswer.indexOf(key) === -1) {
+  if (correctAnswer.indexOf(letter) === -1) {
     return `${baseBlockStyle} ${noPositionStyle}`; // not present at all - Dark Color
   }
 
-  if (correctAnswer.indexOf(key) !== -1) {
-    const index = correctAnswer.indexOf(key);
-    const lastIndex = correctAnswer.lastIndexOf(key);
-    if (wholeWord[index] === key || wholeWord[lastIndex] === key) {
-      return `${baseBlockStyle} ${noPositionStyle}`; // position already used - Dark Color
-    } else {
-      return `${baseBlockStyle} ${wrongPositionStyle}`; // present, but at wrong position - Yellow color
-    }
+  if (correctAnswer.indexOf(letter) !== -1) { //TODO - write robust logic to show yellow color
+    return `${baseBlockStyle} ${wrongPositionStyle}`; // present, but at wrong position - Yellow color
   }
 
   return `${baseBlockStyle} dark:text-gray-50`; // empty block style

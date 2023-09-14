@@ -1,6 +1,4 @@
-import { FiSun, FiMoon, FiMonitor } from "react-icons/fi";
 import ThemeSwitcher from "./ThemeSwitcher";
-
 
 type Props = {
     onClose: () => void;
@@ -10,16 +8,45 @@ type Props = {
 
 const selectedClass = (
     lettersLimit: Props["lettersLimit"],
-    current: number
+    current: number | undefined
 ) => {
-    if (lettersLimit === current) {
+    if (current && lettersLimit === current) {
         return `bg-lime-600 border-lime-600`;
     }
 
     return `bg-gray-500 border-gray-500`;
 };
 
-export default function Settings({ onClose, lettersLimit, onLettersLimitChange }: Props) {
+const LimitButton = ({
+    currentLimit,
+    onChangeHandler,
+    value,
+}: {
+    currentLimit: number;
+    onChangeHandler: Props["onLettersLimitChange"];
+    value: number;
+}) => {
+    return (
+        <button
+            type="button"
+            onClick={() => onChangeHandler(value)}
+            disabled={currentLimit === value}
+            className={`h-8 w-8 sm:w-8 sm:h-8 grid place-items-center p-0 m-0 font-bold border-2 rounded-md uppercase ${selectedClass(
+                currentLimit,
+                value
+            )} hover:bg-lime-600 hover:border-lime-600 dark:bg-grey-600 dark:border-grey-600 text-gray-50`}
+            tabIndex={-1}
+        >
+            {value}
+        </button>
+    );
+};
+
+export default function Settings({
+    onClose,
+    lettersLimit,
+    onLettersLimitChange,
+}: Props) {
     return (
         <div
             className="relative z-10"
@@ -41,39 +68,21 @@ export default function Settings({ onClose, lettersLimit, onLettersLimitChange }
                                         <div className="mt-3 flex flex-col">
                                             <h1 className="text-1xl">Number of letters</h1>
                                             <div className="flex gap-x-1">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => onLettersLimitChange(4)}
-                                                    className={`h-8 w-8 sm:w-8 sm:h-8 grid place-items-center p-0 m-0 font-bold border-2 rounded-md uppercase ${selectedClass(
-                                                        lettersLimit,
-                                                        4
-                                                    )} hover:bg-lime-600 hover:border-lime-600 dark:bg-grey-600 dark:border-grey-600 text-gray-50`}
-                                                    tabIndex={-1}
-                                                >
-                                                    4
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => onLettersLimitChange(5)}
-                                                    className={`h-8 w-8 sm:w-8 sm:h-8 grid place-items-center p-0 m-0 font-bold border-2 rounded-md uppercase ${selectedClass(
-                                                        lettersLimit,
-                                                        5
-                                                    )} hover:bg-lime-600 hover:border-lime-600 dark:bg-grey-600 dark:border-grey-600  text-gray-50`}
-                                                    tabIndex={-1}
-                                                >
-                                                    5
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => onLettersLimitChange(6)}
-                                                    className={`h-8 w-8 sm:w-8 sm:h-8 grid place-items-center p-0 m-0 font-bold border-2 rounded-md uppercase ${selectedClass(
-                                                        lettersLimit,
-                                                        6
-                                                    )} hover:bg-lime-600 hover:border-lime-600 dark:bg-grey-600 dark:border-grey-600 text-gray-50`}
-                                                    tabIndex={-1}
-                                                >
-                                                    6
-                                                </button>
+                                                <LimitButton
+                                                    currentLimit={lettersLimit}
+                                                    onChangeHandler={onLettersLimitChange}
+                                                    value={4}
+                                                />
+                                                <LimitButton
+                                                    currentLimit={lettersLimit}
+                                                    onChangeHandler={onLettersLimitChange}
+                                                    value={5}
+                                                />
+                                                <LimitButton
+                                                    currentLimit={lettersLimit}
+                                                    onChangeHandler={onLettersLimitChange}
+                                                    value={6}
+                                                />
                                             </div>
                                         </div>
                                         <div className="mt-3 flex flex-col">
