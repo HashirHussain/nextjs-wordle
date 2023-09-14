@@ -9,7 +9,6 @@ import KeyBoard from "./components/Keyboard";
 import PlayBoard from "./components/PlayBoard";
 import {
   CHANCE_LIMIT,
-  DEFAULT_LETTER_LIMIT,
   KEYBOARD_EVENT,
   blocksValueType,
   isAlphabetPressed,
@@ -17,6 +16,9 @@ import {
   isEnterPressed,
   pickRandom,
 } from "./lib";
+
+import { useSelector } from "react-redux";
+import { letterLimit as letterLimitSelector } from "./redux/selectors";
 
 const alertMessages = {
   GUESS_FIRST_WORD: (
@@ -33,10 +35,10 @@ const alertMessages = {
 };
 
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
-  const [lettersLimit, setLettersLimit] =
-    useState<number>(DEFAULT_LETTER_LIMIT);
+  const letterLimit = useSelector(letterLimitSelector);
+
   const [correctAnswer, setCorrectAnswer] = useState<string>(
-    pickRandom(wordsList, lettersLimit)
+    pickRandom(wordsList, letterLimit)
   );
   const [alertMessage, setAlertMessage] = useState<any>(null);
   const [grid, setGrid] = useState<blocksValueType>([]); // Holds letters while key press
@@ -55,7 +57,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
       return;
     }
     if (isAlphabetPressed(key)) {
-      if (tempWord.length < lettersLimit) {
+      if (tempWord.length < letterLimit) {
         tempWord.push(key.toLowerCase());
         setTempWord([...tempWord]);
       }
@@ -65,7 +67,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
 
     if (isEnterPressed(key)) {
       const value = tempWord;
-      if (value.length === lettersLimit) {
+      if (value.length === letterLimit) {
         if (wordsList.indexOf(value.join("")) === -1) {
           setAlertMessage(alertMessages.WORD_NOT_FOUND);
           return;
@@ -129,14 +131,14 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     setCurrentRow(0);
     setTempWord([]);
     setGrid([]);
-    setCorrectAnswer(pickRandom(wordsList, lettersLimit));
+    setCorrectAnswer(pickRandom(wordsList, letterLimit));
     setGameEnd(false);
     setAlertMessage(alertMessages.GUESS_FIRST_WORD);
   };
 
   useEffect(() => {
-    setCorrectAnswer(pickRandom(wordsList, lettersLimit));
-  }, [lettersLimit, wordsList]);
+    resetGame();
+  }, [letterLimit, wordsList]);
 
   useEffect(() => {
     let timeoutId: string | number | NodeJS.Timeout | undefined;
@@ -161,24 +163,15 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     };
   }, []);
 
-  console.log("Correct answer --->", correctAnswer);
-
   return (
     <>
       <div className="flex flex-col justify-center items-center">
         {alertMessage && <Alert>{alertMessage}</Alert>}
-        <Header
-          lettersLimit={lettersLimit}
-          onLettersLimitChange={(limit) => {
-            setLettersLimit(limit);
-            resetGame();
-          }}
-        />
+        <Header />
         <PlayBoard
           grid={grid}
           currentRow={currentRow}
           tempWord={tempWord}
-          lettersLimit={lettersLimit}
           correctAnswer={correctAnswer}
         />
         <KeyBoard

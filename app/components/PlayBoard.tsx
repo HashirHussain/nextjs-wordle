@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   CHANCE_LIMIT,
   blocksValueType,
@@ -5,6 +6,7 @@ import {
   getChances,
   getLettersBlock,
 } from "../lib";
+import { RootState } from "../redux/store";
 
 const baseBlockStyle = `h-12 w-12 sm:w-14 sm:h-14 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase`;
 const rightPositionStyle = `animate-[ping_75ms] bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
@@ -15,7 +17,6 @@ type PropsType = {
   grid: blocksValueType;
   currentRow: number;
   tempWord: Array<string>;
-  lettersLimit: number;
   correctAnswer: string;
 };
 
@@ -23,15 +24,19 @@ export default function PlayBoard({
   grid,
   currentRow,
   tempWord,
-  lettersLimit,
   correctAnswer,
 }: PropsType) {
+
+  const letterLimit = useSelector(
+    (state: RootState) => state.settings.letterLimit
+  );
+
   return (
     <div className="blocks-wrapper flex flex-col gap-y-1 my-2">
       {getChances(CHANCE_LIMIT).map((_, rowIndex: number) => {
         return (
           <div key={`row-${rowIndex}`} className="flex gap-x-1">
-            {getLettersBlock(lettersLimit).map((_, blockIndex: number) => {
+            {getLettersBlock(letterLimit).map((_, blockIndex: number) => {
               if (Array.isArray(grid[rowIndex])) {
                 return grid[rowIndex][blockIndex] ? (
                   <div
@@ -82,7 +87,8 @@ const getBlockStyle = (
     return `${baseBlockStyle} ${noPositionStyle}`; // not present at all - Dark Color
   }
 
-  if (correctAnswer.indexOf(letter) !== -1) { //TODO - write robust logic to show yellow color
+  if (correctAnswer.indexOf(letter) !== -1) {
+    //TODO - write robust logic to show yellow color
     return `${baseBlockStyle} ${wrongPositionStyle}`; // present, but at wrong position - Yellow color
   }
 

@@ -2,6 +2,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { ThemeProvider } from "next-themes";
+import { Provider as ReduxProvider } from "react-redux";
+import { store } from "./redux/store";
 
 type Props = {
   children: React.ReactNode;
@@ -13,8 +15,6 @@ export default function Providers({ children }: Props) {
   useEffect(() => {
     setMounted(true);
   }, []);
-
-
 
   if (!mounted) {
     return (
@@ -42,5 +42,9 @@ export default function Providers({ children }: Props) {
     );
   }
 
-  return <ThemeProvider>{children}</ThemeProvider>;
+  return (
+    <ReduxProvider store={store}>
+      <ThemeProvider>{children}</ThemeProvider>
+    </ReduxProvider>
+  );
 }

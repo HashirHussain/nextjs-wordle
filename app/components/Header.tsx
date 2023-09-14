@@ -4,12 +4,7 @@ import { FiSettings } from "react-icons/fi";
 import HowTo from "./HowTo";
 import Settings from "./Settings";
 
-type Props = {
-    lettersLimit: number;
-    onLettersLimitChange: (arg0: number) => void;
-};
-
-export default function Header({ lettersLimit, onLettersLimitChange }: Props) {
+export default function Header() {
     const [showHowTo, setShowHowTo] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
     return (
@@ -35,13 +30,7 @@ export default function Header({ lettersLimit, onLettersLimitChange }: Props) {
                 </button>
             </header>
             {showHowTo && <HowTo onClose={() => setShowHowTo(false)} />}
-            {showSettings && (
-                <Settings
-                    onClose={() => setShowSettings(false)}
-                    lettersLimit={lettersLimit}
-                    onLettersLimitChange={onLettersLimitChange}
-                />
-            )}
+            {showSettings && <Settings onClose={() => setShowSettings(false)} />}
         </>
     );
 }

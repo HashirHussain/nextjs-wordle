@@ -1,16 +1,11 @@
+import { useDispatch, useSelector } from "react-redux";
 import ThemeSwitcher from "./ThemeSwitcher";
 
-type Props = {
-    onClose: () => void;
-    lettersLimit: number;
-    onLettersLimitChange: (arg0: number) => void;
-};
+import { letterLimit as letterLimitSelector } from "../redux/selectors";
+import { updateLetterLimit } from "../redux/settings-reducer";
 
-const selectedClass = (
-    lettersLimit: Props["lettersLimit"],
-    current: number | undefined
-) => {
-    if (current && lettersLimit === current) {
+const selectedClass = (letterLimit: number, current: number | undefined) => {
+    if (current && letterLimit === current) {
         return `bg-lime-600 border-lime-600`;
     }
 
@@ -19,17 +14,17 @@ const selectedClass = (
 
 const LimitButton = ({
     currentLimit,
-    onChangeHandler,
+    onClick,
     value,
 }: {
     currentLimit: number;
-    onChangeHandler: Props["onLettersLimitChange"];
+    onClick: (arg0: number) => void;
     value: number;
 }) => {
     return (
         <button
             type="button"
-            onClick={() => onChangeHandler(value)}
+            onClick={() => onClick(value)}
             disabled={currentLimit === value}
             className={`h-8 w-8 sm:w-8 sm:h-8 grid place-items-center p-0 m-0 font-bold border-2 rounded-md uppercase ${selectedClass(
                 currentLimit,
@@ -42,11 +37,10 @@ const LimitButton = ({
     );
 };
 
-export default function Settings({
-    onClose,
-    lettersLimit,
-    onLettersLimitChange,
-}: Props) {
+export default function Settings({ onClose }: { onClose: () => void }) {
+    const letterLimit: number = useSelector(letterLimitSelector);
+
+    const dispatch = useDispatch();
     return (
         <div
             className="relative z-10"
@@ -69,18 +63,24 @@ export default function Settings({
                                             <h1 className="text-1xl">Number of letters</h1>
                                             <div className="flex gap-x-1">
                                                 <LimitButton
-                                                    currentLimit={lettersLimit}
-                                                    onChangeHandler={onLettersLimitChange}
+                                                    currentLimit={letterLimit}
+                                                    onClick={(value) =>
+                                                        dispatch(updateLetterLimit(value))
+                                                    }
                                                     value={4}
                                                 />
                                                 <LimitButton
-                                                    currentLimit={lettersLimit}
-                                                    onChangeHandler={onLettersLimitChange}
+                                                    currentLimit={letterLimit}
+                                                    onClick={(value) =>
+                                                        dispatch(updateLetterLimit(value))
+                                                    }
                                                     value={5}
                                                 />
                                                 <LimitButton
-                                                    currentLimit={lettersLimit}
-                                                    onChangeHandler={onLettersLimitChange}
+                                                    currentLimit={letterLimit}
+                                                    onClick={(value) =>
+                                                        dispatch(updateLetterLimit(value))
+                                                    }
                                                     value={6}
                                                 />
                                             </div>
