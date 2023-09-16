@@ -11,7 +11,7 @@ const keyStyle = `border-2 rounded-md sm:px-4 px-2 py-3 uppercase font-semibold 
 
 const defaultStyle = `${keyStyle} text-gray-800 bg-gray-100 border border-gray-200 dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500`;
 const correctKeyStyle = `${keyStyle} bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
-const incorrectKey = `${keyStyle} bg-gray-400 dark:bg-gray-400 text-gray-50`;
+const incorrectKey = `${keyStyle} bg-gray-400 border-gray-400 dark:bg-gray-400 text-gray-50`;
 const misplacedKeyStyle = `${keyStyle} bg-amber-500 border-amber-500 dark:bg-amber-500 dark:border-amber-500 text-gray-50`;
 
 export default function KeyBoard({
@@ -23,7 +23,7 @@ export default function KeyBoard({
     const grid = useSelector(gridSelector);
 
     return (
-        <div className="flex flex-col justify-center items-center gap-1 mt-5">
+        <div className="flex flex-col justify-center items-center gap-1">
             <div className="flex flex-row justify-stretch gap-x-1">
                 {ALPHABETS[0].map((key: string, index: number) => {
                     return (

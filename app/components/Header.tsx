@@ -9,7 +9,7 @@ export default function Header() {
     const [showSettings, setShowSettings] = useState(false);
     return (
         <>
-            <header className="flex justify-center items-center gap-x-6 my-4">
+            <header className="flex justify-center items-center gap-x-6 mt-2">
                 <button
                     type="button"
                     title="how to play"
