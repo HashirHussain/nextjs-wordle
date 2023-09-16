@@ -138,7 +138,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col">
       <Alert />
       <Header />
       <PlayBoard />

@@ -36,6 +36,11 @@ const findIndices = (arr: any, value: any) => {
   return arr.map((e: any, i: number) => (e === value ? i : "")).filter(String);
 };
 
+function intersection(argOne: Array<any>, argTwo: Array<any>) {
+  const setA = new Set(argOne);
+  return argTwo.filter(value => setA.has(value));
+}
+
 export {
   ALPHABETS,
   BACKSPACE_KEY,
@@ -48,4 +53,5 @@ export {
   isDeletedPressed,
   isEnterPressed,
   pickRandom,
+  intersection
 };

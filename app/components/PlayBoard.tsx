@@ -16,7 +16,7 @@ export default function PlayBoard() {
   const grid = useSelector(selector.grid);
 
   return (
-    <div className="blocks-wrapper flex flex-col gap-y-1 my-2">
+    <div className="blocks-wrapper flex flex-col items-center gap-y-1 my-5">
       {generateBlankArray(chanceLimit).map((_, rowIndex: number) => {
         return (
           <div key={`row-${rowIndex}`} className="flex gap-x-1">

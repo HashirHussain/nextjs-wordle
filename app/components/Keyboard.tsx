@@ -1,5 +1,5 @@
 import { FiArrowLeft, FiCornerDownLeft } from "react-icons/fi";
-import { ALPHABETS, findIndices } from "../lib";
+import { ALPHABETS, findIndices, intersection } from "../lib";
 
 import {
     correctWord as correctWordSelector,
@@ -7,14 +7,7 @@ import {
 } from "../redux/selectors";
 import { useSelector } from "react-redux";
 
-const keyStyle = `flex grow shrink basis-px
-items-center justify-center
-px-3 py-1 sm:py-2
-font-semibold text-base 
-rounded-md
-uppercase
-cursor-pointer
-select-none`;
+const keyStyle = `border-2 rounded-md sm:px-4 px-2 py-3 uppercase font-semibold text-base select-none`;
 
 const defaultStyle = `${keyStyle} text-gray-800 bg-gray-100 border border-gray-200 dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500`;
 const correctKeyStyle = `${keyStyle} bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
@@ -28,6 +21,7 @@ export default function KeyBoard({
 }) {
     const correctWord = useSelector(correctWordSelector);
     const grid = useSelector(gridSelector);
+
     return (
         <div className="flex flex-col justify-center items-center gap-1 mt-5">
             <div className="flex flex-row justify-stretch gap-x-1">
@@ -36,7 +30,7 @@ export default function KeyBoard({
                         <button
                             type="button"
                             tabIndex={-1}
-                            key={`key - ${key} -${index} `}
+                            key={`key-${key}-${index}`}
                             className={getKeyStyle(key, grid, correctWord)}
                             onClick={() => onKeyboardClick(key)}
                         >
@@ -112,11 +106,12 @@ const getKeyStyle = (
         return incorrectKey; // letter not present at all - dark style
     }
 
-    const pos = findIndices(correctWord.split(""), key);
-    const currPoss = grid.map((item) => findIndices(item, key)).flat();
-    const onCorrectPosition = currPoss.join("").indexOf(pos.join(""));
+    const indicesInCorrectWord = findIndices(correctWord.split(""), key);
+    const indicesInGrid = grid.map((item) => findIndices(item, key)).flat();
 
-    if (onCorrectPosition > -1) {
+    const commonIndices = intersection(indicesInCorrectWord, indicesInGrid);
+
+    if (commonIndices.length) {
         return correctKeyStyle; // correct letter at right position - green style
     }
 

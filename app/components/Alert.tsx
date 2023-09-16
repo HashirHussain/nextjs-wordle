@@ -30,8 +30,8 @@ export default function Alert() {
     if (alertType === alertMessageType.YOU_WON) {
         return (
             <div className={`${alertStyle}`} role="alert">
-                <span className="block sm:inline">
-                    <span>{"You Won"}</span>
+                <span className="block sm:inline tracking-widest">
+                    <span>{"You Won!"}</span>
                 </span>
             </div>
         );
@@ -40,7 +40,7 @@ export default function Alert() {
     if (alertType === alertMessageType.GUESS_FIRST_WORD) {
         return (
             <div className={`${alertStyle}`} role="alert">
-                <span className="block sm:inline">
+                <span className="block sm:inline tracking-widest">
                     <span className="tracking-widest">{"Guess the first word!"}</span>
                 </span>
             </div>
@@ -50,7 +50,7 @@ export default function Alert() {
     if (alertType === alertMessageType.GAME_END) {
         return (
             <div className={`${alertStyle}`} role="alert">
-                <span className="block sm:inline">
+                <span className="block sm:inline tracking-widest">
                     <span>{"Game End! Press restart to begin."}</span>
                 </span>
             </div>
@@ -60,8 +60,8 @@ export default function Alert() {
     if (alertType === alertMessageType.GIVE_UP) {
         return (
             <div className={`${alertStyle}`} role="alert">
-                <span className="block sm:inline">
-                    <span className="uppercase tracking-widest">{correctWord}</span>
+                <span className="block sm:inline tracking-widest">
+                    <span className="uppercase">{correctWord}</span>
                 </span>
             </div>
         );
@@ -70,7 +70,7 @@ export default function Alert() {
     if (alertType === alertMessageType.WORD_NOT_FOUND) {
         return (
             <div className={`${alertStyle}`} role="alert">
-                <span className="block sm:inline">
+                <span className="block sm:inline tracking-widest">
                     <span>{"Word not found"}</span>
                 </span>
             </div>
@@ -80,7 +80,7 @@ export default function Alert() {
     if (alertType === alertMessageType.YOU_LOST) {
         return (
             <div className={`${alertStyle}`} role="alert">
-                <span className="block sm:inline">
+                <span className="block sm:inline tracking-widest">
                     <span>
                         {"You lost! Correct word was"}{" "}
                         <span className="uppercase">{correctWord}</span>
