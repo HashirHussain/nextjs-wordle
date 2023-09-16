@@ -1,12 +1,18 @@
 import React from "react";
 import { FiRotateCcw, FiFrown } from "react-icons/fi";
+import { grid as gridSelector } from "../redux/selectors";
+import { useSelector } from "react-redux";
 
 type Props = {
     onRestart: () => void;
-    onGiveUp: (arg0: any) => void;
+    onGiveUp: () => void;
 };
 
 export default function CTA({ onRestart, onGiveUp }: Props) {
+    const grid = useSelector(gridSelector);
+    if (grid.length === 0) {
+        return null;
+    }
     return (
         <div className="flex mt-5">
             <button
@@ -21,7 +27,7 @@ export default function CTA({ onRestart, onGiveUp }: Props) {
             <button
                 type="button"
                 tabIndex={-1}
-                onClick={(e) => onGiveUp(e)}
+                onClick={onGiveUp}
                 className="text-gray-50 bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
             >
                 <FiFrown />

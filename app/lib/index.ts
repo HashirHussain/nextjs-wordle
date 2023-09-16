@@ -9,8 +9,6 @@ const ENTER_KEY = "enter";
 const BACKSPACE_KEY = "backspace";
 const DELETE_KEY = "delete";
 
-type gridType = Array<Array<string>>;
-
 const pickRandom = (list: Array<string>, limit: number) => {
   const _list = list.filter((item) => item.length === limit);
   return _list[Math.floor(Math.random() * _list.length)];
@@ -51,4 +49,3 @@ export {
   isEnterPressed,
   pickRandom,
 };
-export type { gridType };

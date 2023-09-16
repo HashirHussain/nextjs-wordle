@@ -6,6 +6,7 @@ const initialState: GameState = {
   correctWord: "",
   currentSelectedRow: 0,
   tempWord: [],
+  grid: [],
 };
 
 export interface GameState {
@@ -13,6 +14,7 @@ export interface GameState {
   correctWord: string;
   currentSelectedRow: number;
   tempWord: Array<string>;
+  grid: Array<Array<string>>;
 }
 
 export const gameSlice = createSlice({
@@ -42,6 +44,12 @@ export const gameSlice = createSlice({
     setCorrectWord: (state, action: PayloadAction<string>) => {
       state.correctWord = action.payload;
     },
+    pushToGrid: (state, action: PayloadAction<Array<string>>) => {
+      state.grid[state.currentSelectedRow] = action.payload;
+    },
+    clearGrid: (state) => {
+      state.grid = [];
+    },
   },
 });
 
@@ -53,6 +61,8 @@ export const {
   popFromTempWord,
   clearTempWord,
   setCorrectWord,
+  pushToGrid,
+  clearGrid
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

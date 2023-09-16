@@ -1,28 +1,19 @@
 import { useSelector } from "react-redux";
-import { gridType, generateBlankArray } from "../lib";
-import {
-  chanceLimit as chanceLimitSelector,
-  letterLimit as letterLimitSelector,
-  tempWord as tempWordSelector,
-  currentSelectedRow as currentSelectedRowSelector,
-  correctWord as correctWordSelector,
-} from "../redux/selectors";
+import { generateBlankArray } from "../lib";
+import * as selector from "../redux/selectors";
 
 const baseBlockStyle = `h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase`;
 const rightPositionStyle = `animate-[ping_75ms] bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
 const wrongPositionStyle = `bg-amber-400 border-amber-400 dark:bg-amber-400 dark:border-amber-400 text-gray-50`;
 const noPositionStyle = `bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50`;
 
-type PropsType = {
-  grid: gridType;
-};
-
-export default function PlayBoard({ grid }: PropsType) {
-  const letterLimit = useSelector(letterLimitSelector);
-  const chanceLimit = useSelector(chanceLimitSelector);
-  const tempWord = useSelector(tempWordSelector);
-  const currentRow = useSelector(currentSelectedRowSelector);
-  const correctWord = useSelector(correctWordSelector);
+export default function PlayBoard() {
+  const letterLimit = useSelector(selector.letterLimit);
+  const chanceLimit = useSelector(selector.chanceLimit);
+  const tempWord = useSelector(selector.tempWord);
+  const currentRow = useSelector(selector.currentSelectedRow);
+  const correctWord = useSelector(selector.correctWord);
+  const grid = useSelector(selector.grid);
 
   return (
     <div className="blocks-wrapper flex flex-col gap-y-1 my-2">

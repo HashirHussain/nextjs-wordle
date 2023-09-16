@@ -15,3 +15,7 @@ export const tempWord = (state: RootState): Array<string> =>
     state.game.tempWord;
 
 export const correctWord = (state: RootState): string => state.game.correctWord;
+
+export const grid = (state: RootState): Array<Array<string>> => state.game.grid;
+
+export const alertType = (state: RootState): string => state.alert.alertType;

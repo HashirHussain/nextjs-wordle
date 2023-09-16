@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Alert from "./components/Alert";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
@@ -9,7 +9,6 @@ import KeyBoard from "./components/Keyboard";
 import PlayBoard from "./components/PlayBoard";
 import {
   KEYBOARD_EVENT,
-  gridType,
   isAlphabetPressed,
   isDeletedPressed,
   isEnterPressed,
@@ -17,61 +16,37 @@ import {
 } from "./lib";
 
 import { useDispatch, useSelector } from "react-redux";
+import { alertMessageType, setAlertType } from "./redux/alert-reducer";
 import {
-  pushToTempWord,
+  clearGrid,
   clearTempWord,
+  popFromTempWord,
+  pushToGrid,
+  pushToTempWord,
+  setCorrectWord,
   setCurrentSelectedRow,
   setGameEnd,
-  popFromTempWord,
-  setCorrectWord,
 } from "./redux/game-reducer";
-import {
-  chanceLimit as chanceLimitSelector,
-  currentSelectedRow as currentSelectedRowSelector,
-  gameEnd as gameEndSelector,
-  letterLimit as letterLimitSelector,
-  tempWord as tempWordSelector,
-  correctWord as correctWordSelector,
-} from "./redux/selectors";
-
-const alertMessages = {
-  GUESS_FIRST_WORD: (
-    <span className="tracking-widest">{"Guess the first word!"}</span>
-  ),
-  GAME_END: <span>{"Game End! Press restart to begin."}</span>,
-  YOU_WON: <span>{"You Won"}</span>,
-  GIVE_UP: (correctWord: string) => (
-    <span className="uppercase tracking-widest">{correctWord}</span>
-  ),
-  WORD_NOT_FOUND: <span>{"Word not found"}</span>,
-  YOU_LOST: (word: string) => (
-    <span>
-      {"You lost! Correct word was"} <span className="uppercase">{word}</span>{" "}
-    </span>
-  ),
-};
+import * as selector from "./redux/selectors";
 
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
-  const letterLimit = useSelector(letterLimitSelector);
-  const chanceLimit = useSelector(chanceLimitSelector);
-  const gameEnd = useSelector(gameEndSelector);
-  const currentSelectedRow = useSelector(currentSelectedRowSelector);
-  const tempWord = useSelector(tempWordSelector);
-  const correctWord = useSelector(correctWordSelector);
+  const letterLimit = useSelector(selector.letterLimit);
+  const chanceLimit = useSelector(selector.chanceLimit);
+  const gameEnd = useSelector(selector.gameEnd);
+  const currentSelectedRow = useSelector(selector.currentSelectedRow);
+  const tempWord = useSelector(selector.tempWord);
+  const correctWord = useSelector(selector.correctWord);
+  const grid = useSelector(selector.grid);
 
   const dispatch = useDispatch();
-
-  const [alertMessage, setAlertMessage] = useState<any>(null);
-  const [grid, setGrid] = useState<gridType>([]); // Holds letters while key press
-
   function keyPressHandler(key: string) {
-    setAlertMessage(null); // Hide alert box immediately after key press
+    dispatch(setAlertType("")); // Hide alert box immediately after key press
     if (currentSelectedRow === chanceLimit) {
       // Game has finished already
       return;
     }
     if (gameEnd) {
-      setAlertMessage(alertMessages.GAME_END);
+      dispatch(setAlertType(alertMessageType.GAME_END));
       return;
     }
     if (isAlphabetPressed(key)) {
@@ -83,32 +58,30 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     }
 
     if (isEnterPressed(key)) {
-      const value = tempWord;
-      if (value.length === letterLimit) {
-        if (wordsList.indexOf(value.join("")) === -1) {
-          setAlertMessage(alertMessages.WORD_NOT_FOUND);
-          return;
-        }
-        if (value.join("") === correctWord) {
-          // <-- Wining condition
-          dispatch(clearTempWord());
-          grid[currentSelectedRow] = [...value];
-          setGrid([...grid]);
-          setAlertMessage(alertMessages.YOU_WON);
-          dispatch(setGameEnd(true));
-          return;
-        }
-        if (currentSelectedRow + 1 === chanceLimit) {
-          // This was the final enter press
-          setAlertMessage(alertMessages.YOU_LOST(correctWord));
-          dispatch(setGameEnd(true));
-        }
-        dispatch(clearTempWord());
-        grid[currentSelectedRow] = [...value];
-        setGrid([...grid]);
-        dispatch(setCurrentSelectedRow(currentSelectedRow + 1)); // Jump to the next row if game still going on
+      const value = Object.assign([], tempWord, { selected: false });
+      if (value.length !== letterLimit) {
+        return;
       }
-      return;
+      if (wordsList.indexOf(value.join("")) === -1) {
+        dispatch(setAlertType(alertMessageType.WORD_NOT_FOUND));
+        return;
+      }
+      if (value.join("") === correctWord) {
+        // <-- Wining condition
+        dispatch(clearTempWord());
+        dispatch(pushToGrid(value));
+        dispatch(setAlertType(alertMessageType.YOU_WON));
+        dispatch(setGameEnd(true));
+        return;
+      }
+      if (currentSelectedRow + 1 === chanceLimit) {
+        // This was the final enter press
+        dispatch(setAlertType(alertMessageType.YOU_LOST));
+        dispatch(setGameEnd(true));
+      }
+      dispatch(clearTempWord());
+      dispatch(pushToGrid(value));
+      dispatch(setCurrentSelectedRow(currentSelectedRow + 1)); // Jump to the next row if game still going on
     }
 
     if (isDeletedPressed(key)) {
@@ -132,9 +105,9 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
 
   const onGiveUpHandler = () => {
     if (grid.flat().length && gameEnd === false) {
-      setAlertMessage(alertMessages.GIVE_UP(correctWord));
+      dispatch(setAlertType(alertMessageType.GIVE_UP));
     } else {
-      setAlertMessage(alertMessages.GAME_END);
+      dispatch(setAlertType(alertMessageType.GAME_END));
     }
     dispatch(setGameEnd(true));
   };
@@ -142,27 +115,16 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const resetGame = () => {
     dispatch(setCurrentSelectedRow(0));
     dispatch(clearTempWord());
-    setGrid([]);
+    dispatch(clearGrid());
     dispatch(setCorrectWord(pickRandom(wordsList, letterLimit)));
     dispatch(setGameEnd(false));
-    setAlertMessage(alertMessages.GUESS_FIRST_WORD);
+    dispatch(setAlertType(alertMessageType.GUESS_FIRST_WORD));
   };
 
   useEffect(() => {
     resetGame();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [letterLimit, wordsList, chanceLimit]);
-
-  useEffect(() => {
-    let timeoutId: string | number | NodeJS.Timeout | undefined;
-    if (alertMessage) {
-      timeoutId = setTimeout(() => {
-        setAlertMessage(null);
-      }, 2000);
-    }
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [alertMessage]);
 
   const handlerKeyboardRef = useRef(KeyUpHandler);
   handlerKeyboardRef.current = KeyUpHandler;
@@ -177,13 +139,11 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      {alertMessage && <Alert>{alertMessage}</Alert>}
+      <Alert />
       <Header />
-      <PlayBoard grid={grid} />
-      <KeyBoard onKeyboardClick={keyPressHandler} grid={grid} />
-      {grid.flat().length > 0 ? (
-        <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
-      ) : null}
+      <PlayBoard />
+      <KeyBoard onKeyboardClick={keyPressHandler} />
+      <CTA onRestart={onRestartHandler} onGiveUp={onGiveUpHandler} />
       <Footer />
     </div>
   );

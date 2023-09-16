@@ -1,7 +1,10 @@
 import { FiArrowLeft, FiCornerDownLeft } from "react-icons/fi";
-import { ALPHABETS, gridType, findIndices } from "../lib";
+import { ALPHABETS, findIndices } from "../lib";
 
-import { correctWord as correctWordSelector } from "../redux/selectors";
+import {
+    correctWord as correctWordSelector,
+    grid as gridSelector,
+} from "../redux/selectors";
 import { useSelector } from "react-redux";
 
 const keyStyle = `flex grow shrink basis-px
@@ -20,12 +23,11 @@ const misplacedKeyStyle = `${keyStyle} bg-amber-500 border-amber-500 dark:bg-amb
 
 export default function KeyBoard({
     onKeyboardClick,
-    grid,
 }: {
     onKeyboardClick: (arg0: string) => void;
-    grid: gridType;
 }) {
     const correctWord = useSelector(correctWordSelector);
+    const grid = useSelector(gridSelector);
     return (
         <div className="flex flex-col justify-center items-center gap-1 mt-5">
             <div className="flex flex-row justify-stretch gap-x-1">
@@ -97,7 +99,11 @@ export default function KeyBoard({
     );
 }
 
-const getKeyStyle = (key: string, grid: gridType, correctWord: string) => {
+const getKeyStyle = (
+    key: string,
+    grid: Array<Array<string>>,
+    correctWord: string
+) => {
     if (grid.flat().indexOf(key) === -1) {
         return defaultStyle; // untouched key - default style
     }
