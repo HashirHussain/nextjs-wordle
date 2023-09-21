@@ -8,7 +8,7 @@ export default function Footer() {
                 <a
                     title="github link"
                     rel="noopener"
-                    href="https://github.com/HashirHussain/nextjs-wordle/"
+                    href="https://github.com/HashirHussain/wordle/"
                     className="mr-5 hover:text-gray-900 dark:text-gray-50 text-xl cursor-pointer"
                     target="_blank"
                 >

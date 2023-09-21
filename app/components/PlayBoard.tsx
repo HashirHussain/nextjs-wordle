@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { generateBlankArray } from "../lib";
+import { findIndices, generateBlankArray, intersection } from "../lib";
 import * as selector from "../redux/selectors";
 
 const baseBlockStyle = `h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase`;
@@ -72,8 +72,22 @@ const getBlockStyle = (
   }
 
   if (correctWord.indexOf(letter) !== -1) {
-    //TODO - write robust logic to show yellow color
-    return `${baseBlockStyle} ${wrongPositionStyle}`; // present, but at wrong position - Yellow color
+    const indicesInCorrectWord = findIndices(correctWord.split(""), letter);
+    const indicesInWholeWord = findIndices(wholeWord, letter);
+    const commonIndices = intersection(
+      indicesInCorrectWord,
+      indicesInWholeWord
+    );
+
+    if (indicesInWholeWord.length > commonIndices.length) {
+      return `${baseBlockStyle} ${wrongPositionStyle}`; // present, but at wrong position (more than one appearance) - Yellow color
+    }
+
+    if (commonIndices.length === 0) {
+      return `${baseBlockStyle} ${wrongPositionStyle}`; // present, but at wrong position - Yellow color
+    }
+
+    return `${baseBlockStyle} ${noPositionStyle}`; // not present at all - Dark Color
   }
 
   return `${baseBlockStyle} dark:text-gray-50`; // empty block style

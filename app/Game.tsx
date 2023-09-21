@@ -41,11 +41,8 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const dispatch = useDispatch();
   function keyPressHandler(key: string) {
     dispatch(setAlertType("")); // Hide alert box immediately after key press
-    if (currentSelectedRow === chanceLimit) {
+    if (currentSelectedRow === chanceLimit || gameEnd) {
       // Game has finished already
-      return;
-    }
-    if (gameEnd) {
       dispatch(setAlertType(alertMessageType.GAME_END));
       return;
     }
@@ -136,6 +133,8 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
       document.removeEventListener(KEYBOARD_EVENT, handlerKeyboardRef.current);
     };
   }, []);
+
+  console.log('correctWord-->', correctWord);
 
   return (
     <div className="flex flex-col gap-y-7">
