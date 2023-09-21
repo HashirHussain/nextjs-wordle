@@ -79,7 +79,10 @@ const getBlockStyle = (
       indicesInWholeWord
     );
 
-    if (indicesInWholeWord.length > commonIndices.length) {
+    if (
+      indicesInWholeWord.length > commonIndices.length &&
+      indicesInCorrectWord.length === indicesInWholeWord.length
+    ) {
       return `${baseBlockStyle} ${wrongPositionStyle}`; // present, but at wrong position (more than one appearance) - Yellow color
     }
 
