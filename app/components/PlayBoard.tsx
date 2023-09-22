@@ -3,6 +3,7 @@ import { findIndices, generateBlankArray, intersection } from "../lib";
 import * as selector from "../redux/selectors";
 
 const baseBlockStyle = `h-10 w-10 sm:w-12 sm:h-12 grid place-items-center p-0 m-0 font-bold text-2xl border-2 rounded-md uppercase`;
+const emptyBlockStyle = `${baseBlockStyle} bg-gray-100 dark:bg-gray-900 dark:text-gray-50`;
 const rightPositionStyle = `animate-[ping_75ms] bg-lime-600 border-lime-600 dark:bg-lime-600 dark:border-lime-600 text-gray-50`;
 const wrongPositionStyle = `bg-amber-400 border-amber-400 dark:bg-amber-400 dark:border-amber-400 text-gray-50`;
 const noPositionStyle = `bg-gray-500 border-gray-500 dark:bg-gray-500 dark:border-gray-500 text-gray-50`;
@@ -35,19 +36,31 @@ export default function PlayBoard() {
                     {grid[rowIndex][blockIndex]}
                   </div>
                 ) : (
-                  generateEmptyBlock(`block-${rowIndex}-${blockIndex}`)
+                  <div
+                    key={`block-${rowIndex}-${blockIndex}`}
+                    className={emptyBlockStyle}
+                  >
+                    {""}
+                  </div>
                 );
               } else if (tempWord[blockIndex] && rowIndex === currentRow) {
                 return (
                   <div
                     key={`block-${rowIndex}-${blockIndex}`}
-                    className={`${baseBlockStyle} dark:text-gray-50`}
+                    className={emptyBlockStyle}
                   >
                     {tempWord[blockIndex]}
                   </div>
                 );
               } else {
-                return generateEmptyBlock(`block-${rowIndex}-${blockIndex}`);
+                return (
+                  <div
+                    key={`block-${rowIndex}-${blockIndex}`}
+                    className={emptyBlockStyle}
+                  >
+                    {""}
+                  </div>
+                );
               }
             })}
           </div>
@@ -93,13 +106,5 @@ const getBlockStyle = (
     return `${baseBlockStyle} ${noPositionStyle}`; // not present at all - Dark Color
   }
 
-  return `${baseBlockStyle} dark:text-gray-50`; // empty block style
-};
-
-const generateEmptyBlock = (keyIndex: string) => {
-  return (
-    <div key={keyIndex} className={baseBlockStyle}>
-      {""}
-    </div>
-  );
+  return emptyBlockStyle; // empty block style
 };
