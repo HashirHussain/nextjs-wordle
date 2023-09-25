@@ -134,8 +134,6 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     };
   }, []);
 
-  console.log('correctWord-->', correctWord);
-
   return (
     <div className="flex flex-col gap-y-7">
       <Alert />
