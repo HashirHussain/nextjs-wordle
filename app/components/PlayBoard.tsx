@@ -98,8 +98,10 @@ const getBlockStyle = (
     ) {
       return `${baseBlockStyle} ${wrongPositionStyle}`; // present, but at wrong position (more than one appearance) - Yellow color
     }
+    const occurancesInCorrectWord = correctWord.split(letter).length - 1
+    const indicesToCheck = indicesInWholeWord.slice(0, occurancesInCorrectWord)
 
-    if (commonIndices.length === 0) {
+    if (commonIndices.length === 0 && indicesToCheck.includes(keyPosition)) {
       return `${baseBlockStyle} ${wrongPositionStyle}`; // present, but at wrong position - Yellow color
     }
 
