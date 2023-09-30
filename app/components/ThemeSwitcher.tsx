@@ -43,7 +43,7 @@ const ThemeSwitcher = () => {
             type="button"
             title={`current theme is ${theme}`}
             onClick={() => setCurrentTheme()}
-            className={`inline-flex items-center bg-gray-100 dark:bg-gray-500 border-gray-500 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 dark:bg-grey-600 dark:border-grey-600 dark:text-gray-50 rounded text-base mt-4 md:mt-0`}
+            className={`inline-flex items-center bg-gray-100 dark:bg-gray-500 border-gray-500 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 dark:bg-grey-600 dark:border-grey-600 dark:text-gray-50 rounded text-base md:mt-0`}
         >
             {theme === "light" && <FiSun />}
             {theme === "dark" && <FiMoon />}
