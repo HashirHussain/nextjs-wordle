@@ -18,7 +18,7 @@ const generateLink = (word: string) => {
     const pathname = window.location.pathname;
     // var cipherText = CryptoJS.AES.encrypt(word, CRYPTO_KEY).toString();
     var cipherText = btoa(word);
-    return `${href}/${pathname}/?challenge=${cipherText}`;
+    return `${href}${pathname}?challenge=${cipherText}`;
 }
 
 export default function ChallengeFriend({ onClose }: Props) {
