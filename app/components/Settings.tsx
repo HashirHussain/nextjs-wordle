@@ -102,12 +102,12 @@ export default function Settings({ onClose }: { onClose: () => void }) {
                                             />
                                         </div>
                                     </div>
-                                    <div className="mt-3 flex flex-col">
+                                    {/* <div className="mt-3 flex flex-col">
                                         <h1 className="text-1xl">Color mode</h1>
                                         <div className="flex gap-x-1">
                                             <ThemeSwitcher />
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useRef } from "react";
 import Alert from "./components/Alert";
 import CTA from "./components/CTA";
@@ -9,12 +8,14 @@ import KeyBoard from "./components/Keyboard";
 import PlayBoard from "./components/PlayBoard";
 import {
   KEYBOARD_EVENT,
+  getQueryParam,
   isAlphabetPressed,
   isDeletedPressed,
   isEnterPressed,
   pickRandom,
 } from "./lib";
 
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { alertMessageType, setAlertType } from "./redux/alert-reducer";
 import {
@@ -25,11 +26,13 @@ import {
   pushToTempWord,
   setCorrectWord,
   setCurrentSelectedRow,
+  setDictionary,
   setGameEnd,
 } from "./redux/game-reducer";
 import * as selector from "./redux/selectors";
 
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
+  let queryValue = getQueryParam("challenge");
   const letterLimit = useSelector(selector.letterLimit);
   const chanceLimit = useSelector(selector.chanceLimit);
   const gameEnd = useSelector(selector.gameEnd);
@@ -37,6 +40,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const tempWord = useSelector(selector.tempWord);
   const correctWord = useSelector(selector.correctWord);
   const grid = useSelector(selector.grid);
+  const router = useRouter();
 
   const dispatch = useDispatch();
   function keyPressHandler(key: string) {
@@ -97,6 +101,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   };
 
   const onRestartHandler = () => {
+    router.push("/");
     resetGame();
   };
 
@@ -113,10 +118,28 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     dispatch(setCurrentSelectedRow(0));
     dispatch(clearTempWord());
     dispatch(clearGrid());
-    dispatch(setCorrectWord(pickRandom(wordsList, letterLimit)));
     dispatch(setGameEnd(false));
     dispatch(setAlertType(alertMessageType.GUESS_FIRST_WORD));
+    try {
+      const challengedWord = atob(queryValue)
+      if (
+        queryValue &&
+        queryValue !== "undefined" &&
+        wordsList.includes(challengedWord)
+      ) {
+        dispatch(setCorrectWord(challengedWord));
+      } else {
+        dispatch(setCorrectWord(pickRandom(wordsList, letterLimit)));
+      }
+    } catch (error) {
+      dispatch(setCorrectWord(pickRandom(wordsList, letterLimit)));
+    }
   };
+
+  useEffect(() => {
+    dispatch(setDictionary(wordsList));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     resetGame();

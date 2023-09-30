@@ -8,6 +8,7 @@ const KEYBOARD_EVENT = "keyup";
 const ENTER_KEY = "enter";
 const BACKSPACE_KEY = "backspace";
 const DELETE_KEY = "delete";
+const CRYPTO_KEY = "worldewordlelittlestart";
 
 const pickRandom = (list: Array<string>, limit: number) => {
   const _list = list.filter((item) => item.length === limit);
@@ -36,9 +37,13 @@ const findIndices = (arr: any, value: any) => {
   return arr.map((e: any, i: number) => (e === value ? i : "")).filter(String);
 };
 
-function intersection(argOne: Array<any>, argTwo: Array<any>) {
+const intersection = (argOne: Array<any>, argTwo: Array<any>) => {
   const setA = new Set(argOne);
   return argTwo.filter(value => setA.has(value));
+}
+
+const getQueryParam = (param: string) => {
+  return new URLSearchParams(window.location.search).get(param) || "";
 }
 
 export {
@@ -53,5 +58,7 @@ export {
   isDeletedPressed,
   isEnterPressed,
   pickRandom,
-  intersection
+  intersection,
+  getQueryParam,
+  CRYPTO_KEY
 };

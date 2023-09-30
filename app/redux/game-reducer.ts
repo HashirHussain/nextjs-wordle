@@ -2,6 +2,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: GameState = {
+  dictionary: [],
   gameEnd: false,
   correctWord: "",
   currentSelectedRow: 0,
@@ -10,6 +11,7 @@ const initialState: GameState = {
 };
 
 export interface GameState {
+  dictionary: Array<string>;
   gameEnd: boolean;
   correctWord: string;
   currentSelectedRow: number;
@@ -18,9 +20,12 @@ export interface GameState {
 }
 
 export const gameSlice = createSlice({
-  name: "settings",
+  name: "game",
   initialState,
   reducers: {
+    setDictionary: (state, action: PayloadAction<Array<string>>) => {
+      state.dictionary = action.payload;
+    },
     setGameEnd: (state, action: PayloadAction<boolean>) => {
       state.gameEnd = action.payload;
     },
@@ -55,6 +60,7 @@ export const gameSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
+  setDictionary,
   setGameEnd,
   setCurrentSelectedRow,
   pushToTempWord,
@@ -62,7 +68,7 @@ export const {
   clearTempWord,
   setCorrectWord,
   pushToGrid,
-  clearGrid
+  clearGrid,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

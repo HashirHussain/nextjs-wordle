@@ -1,5 +1,8 @@
 import type { RootState } from "../redux/store";
 
+export const dictionary = (state: RootState): Array<string> =>
+    state.game.dictionary;
+
 export const letterLimit = (state: RootState): number =>
     state.settings.letterLimit;
 

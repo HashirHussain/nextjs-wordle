@@ -28,6 +28,30 @@ const ThemeSwitcher = () => {
         return null;
     }
 
+    const setCurrentTheme = () => {
+        if (theme === "light") {
+            setTheme("dark");
+        } else if (theme === "dark") {
+            setTheme("system");
+        } else {
+            setTheme("light");
+        }
+    };
+
+    return (
+        <button
+            type="button"
+            title={`current theme is ${theme}`}
+            onClick={() => setCurrentTheme()}
+            className={`inline-flex items-center bg-gray-100 dark:bg-gray-500 border-gray-500 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 dark:bg-grey-600 dark:border-grey-600 dark:text-gray-50 rounded text-base mt-4 md:mt-0`}
+        >
+            {theme === "light" && <FiSun />}
+            {theme === "dark" && <FiMoon />}
+            {theme === "system" && <FiMonitor />}
+        </button>
+    );
+
+    // Below approach is another way to set theme
     return (
         <>
             <button
@@ -35,8 +59,8 @@ const ThemeSwitcher = () => {
                 title="light"
                 onClick={() => setTheme("light")}
                 className={`inline-flex items-center ${theme === "light"
-                        ? "bg-lime-600 border-lime-600"
-                        : "bg-gray-500 border-gray-500"
+                    ? "bg-lime-600 border-lime-600"
+                    : "bg-gray-500 border-gray-500"
                     }  border-0 py-2 px-3 focus:outline-none hover:bg-lime-600 hover:border-lime-600 dark:bg-grey-600 dark:border-grey-600 text-gray-50 rounded text-base mt-4 md:mt-0`}
             >
                 <FiSun />
@@ -46,8 +70,8 @@ const ThemeSwitcher = () => {
                 title="dark"
                 onClick={() => setTheme("dark")}
                 className={`inline-flex items-center ${theme === "dark"
-                        ? "bg-lime-600 border-lime-600"
-                        : "bg-gray-500 border-gray-500"
+                    ? "bg-lime-600 border-lime-600"
+                    : "bg-gray-500 border-gray-500"
                     } border-0 py-2 px-3 focus:outline-none hover:bg-lime-600 hover:border-lime-600 dark:bg-grey-600 dark:border-grey-600 text-gray-50 rounded text-base mt-4 md:mt-0`}
             >
                 <FiMoon />
@@ -57,8 +81,8 @@ const ThemeSwitcher = () => {
                 title="auto"
                 onClick={() => setTheme("system")}
                 className={`inline-flex items-center ${theme === "system"
-                        ? "bg-lime-600 border-lime-600"
-                        : "bg-gray-500 border-gray-500"
+                    ? "bg-lime-600 border-lime-600"
+                    : "bg-gray-500 border-gray-500"
                     } border-0 py-2 px-3 focus:outline-none hover:bg-lime-600 hover:border-lime-600 dark:bg-grey-600 dark:border-grey-600 text-gray-50 rounded text-base mt-4 md:mt-0`}
             >
                 <FiMonitor />
