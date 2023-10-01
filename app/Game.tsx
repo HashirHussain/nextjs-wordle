@@ -41,10 +41,16 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
   const tempWord = useSelector(selector.tempWord);
   const correctWord = useSelector(selector.correctWord);
   const grid = useSelector(selector.grid);
+  const gamePaused = useSelector(selector.gamePaused);
   const router = useRouter();
 
   const dispatch = useDispatch();
+
+  console.log('gamePaused', gamePaused);
   function keyPressHandler(key: string) {
+    if (gamePaused === true) {
+      return;
+    }
     dispatch(setAlertType("")); // Hide alert box immediately after key press
     if (currentSelectedRow === chanceLimit || gameEnd) {
       // Game has finished already

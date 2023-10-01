@@ -17,6 +17,8 @@ export const currentSelectedRow = (state: RootState): number =>
 export const tempWord = (state: RootState): Array<string> =>
     state.game.tempWord;
 
+export const gamePaused = (state: RootState): boolean => state.game.gamePaused;
+
 export const correctWord = (state: RootState): string => state.game.correctWord;
 
 export const grid = (state: RootState): Array<Array<string>> => state.game.grid;
