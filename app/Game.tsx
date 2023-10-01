@@ -30,6 +30,7 @@ import {
   setGameEnd,
 } from "./redux/game-reducer";
 import * as selector from "./redux/selectors";
+import { setLetterLimit } from "./redux/settings-reducer";
 
 export default function Game({ wordsList }: { wordsList: Array<string> }) {
   let queryValue = getQueryParam("challenge");
@@ -128,6 +129,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
         wordsList.includes(challengedWord)
       ) {
         dispatch(setCorrectWord(challengedWord));
+        dispatch(setLetterLimit(challengedWord.length))
       } else {
         dispatch(setCorrectWord(pickRandom(wordsList, letterLimit)));
       }
