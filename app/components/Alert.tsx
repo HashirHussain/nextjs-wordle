@@ -6,10 +6,6 @@ import {
 import { alertMessageType, setAlertType } from "../redux/alert-reducer";
 import { useEffect } from "react";
 
-// const alertStyle = `absolute rounded px-8 py-6 bg-gray-50 border-slate-100 dark:bg-gray-500 dark:border-slate-300 dark:text-white border-1 text-gray-800 drop-shadow-2xl`;
-
-const style = `absolute bg-gray-50 m-`;
-
 const RenderMessage = (alertType: string, correctWord: string) => {
     if (alertType === alertMessageType.YOU_WON) {
         return <span>{"You Won!"}</span>;

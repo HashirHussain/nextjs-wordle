@@ -15,7 +15,8 @@ export default function PlayBoard() {
   const currentRow = useSelector(selector.currentSelectedRow);
   const correctWord = useSelector(selector.correctWord);
   const grid = useSelector(selector.grid);
-
+  const challengeMode = useSelector(selector.challengeMode);
+  console.log('challengeMode', challengeMode);
   return (
     <div className="blocks-wrapper flex flex-col items-center gap-y-1">
       {generateBlankArray(chanceLimit).map((_, rowIndex: number) => {
@@ -66,6 +67,8 @@ export default function PlayBoard() {
           </div>
         );
       })}
+      {challengeMode && <span className="mt-2 p-1 px-2 tracking-widest text-xs border-1 rounded-md bg-gray-100 dark:bg-gray-600 dark:text-gray-100">Challenge Mode</span>}
+
     </div>
   );
 }

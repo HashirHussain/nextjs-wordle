@@ -24,6 +24,7 @@ import {
   popFromTempWord,
   pushToGrid,
   pushToTempWord,
+  setChallengeMode,
   setCorrectWord,
   setCurrentSelectedRow,
   setDictionary,
@@ -46,7 +47,6 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
 
   const dispatch = useDispatch();
 
-  console.log('gamePaused', gamePaused);
   function keyPressHandler(key: string) {
     if (gamePaused === true) {
       return;
@@ -126,6 +126,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
     dispatch(clearTempWord());
     dispatch(clearGrid());
     dispatch(setGameEnd(false));
+    dispatch(setChallengeMode(false))
     dispatch(setAlertType(alertMessageType.GUESS_FIRST_WORD));
     try {
       const challengedWord = atob(queryValue)
@@ -136,6 +137,7 @@ export default function Game({ wordsList }: { wordsList: Array<string> }) {
       ) {
         dispatch(setCorrectWord(challengedWord));
         dispatch(setLetterLimit(challengedWord.length))
+        dispatch(setChallengeMode(true))
       } else {
         dispatch(setCorrectWord(pickRandom(wordsList, letterLimit)));
       }

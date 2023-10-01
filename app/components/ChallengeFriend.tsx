@@ -1,22 +1,19 @@
-import CryptoJS from 'crypto-js';
 import { useState } from "react";
-import { FaRegCopy } from "react-icons/fa";
+import { FiLink } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { dictionary as dictionarySelector } from "../redux/selectors";
-import { CRYPTO_KEY } from '../lib';
 
 type Props = {
     onClose: () => void;
 };
 
 const Message = ({ message }: { message: string }) => {
-    return <span className="text-sm">{message}</span>;
+    return <span className="text-sm dark:text-gray-100">{message}</span>;
 };
 
 const generateLink = (word: string) => {
     const href = window.location.origin;
     const pathname = window.location.pathname;
-    // var cipherText = CryptoJS.AES.encrypt(word, CRYPTO_KEY).toString();
     var cipherText = btoa(word);
     return `${href}${pathname}?challenge=${cipherText}`;
 }
@@ -26,17 +23,6 @@ export default function ChallengeFriend({ onClose }: Props) {
     const [word, setWord] = useState("");
     const [message, setMessage] = useState("");
     const [link, setLink] = useState("");
-
-    // useEffect(() => {
-    //     var cipherText = CryptoJS.AES.encrypt('TASK', '123123123').toString();
-    //     console.log('encrypted', cipherText);
-
-    //     var bytes = CryptoJS.AES.decrypt(cipherText, '123123123');
-    //     console.log('bytes', bytes);
-    //     var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-
-    //     console.log('decryptedData', decryptedData);
-    // }, [])
 
     const getLink = (e: { preventDefault: () => void }) => {
         e.preventDefault();
@@ -92,9 +78,9 @@ export default function ChallengeFriend({ onClose }: Props) {
                                             <button
                                                 title="copy link"
                                                 type="submit"
-                                                className="absolute right-2.5 bottom-2.5  bg-gray-100 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 dark:bg-gray-500 dark:text-white rounded text-base "
+                                                className="absolute right-2.5 bottom-2.5 bg-gray-100 border-0 py-2 px-3 focus:outline-none hover:bg-gray-200 dark:bg-gray-500 dark:text-white rounded"
                                             >
-                                                <FaRegCopy />
+                                                <FiLink />
                                             </button>
                                         </div>
                                         <Message message={message} />

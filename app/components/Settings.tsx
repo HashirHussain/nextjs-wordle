@@ -1,11 +1,12 @@
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import ThemeSwitcher from "./ThemeSwitcher";
 
+import { setChallengeMode } from "../redux/game-reducer";
 import {
-    letterLimit as letterLimitSelector,
     chanceLimit as chanceLimitSelector,
+    letterLimit as letterLimitSelector,
 } from "../redux/selectors";
-import { setLetterLimit, setChanceLimit } from "../redux/settings-reducer";
+import { setChanceLimit, setLetterLimit } from "../redux/settings-reducer";
 
 const selectedClass = (letterLimit: number, current: number | undefined) => {
     if (current && letterLimit === current) {
@@ -45,6 +46,8 @@ export default function Settings({ onClose }: { onClose: () => void }) {
     const chanceLimit = useSelector(chanceLimitSelector);
 
     const dispatch = useDispatch();
+    const router = useRouter();
+
     return (
         <div
             className="relative z-10"
@@ -67,17 +70,30 @@ export default function Settings({ onClose }: { onClose: () => void }) {
                                         <div className="flex gap-x-1">
                                             <LimitButton
                                                 currentLimit={letterLimit}
-                                                onClick={(value) => dispatch(setLetterLimit(value))}
+                                                onClick={(value) => {
+                                                    dispatch(setLetterLimit(value));
+                                                    dispatch(setChallengeMode(false));
+                                                    router.push("/");
+
+                                                }}
                                                 value={4}
                                             />
                                             <LimitButton
                                                 currentLimit={letterLimit}
-                                                onClick={(value) => dispatch(setLetterLimit(value))}
+                                                onClick={(value) => {
+                                                    dispatch(setLetterLimit(value));
+                                                    dispatch(setChallengeMode(false));
+                                                    router.push("/");
+                                                }}
                                                 value={5}
                                             />
                                             <LimitButton
                                                 currentLimit={letterLimit}
-                                                onClick={(value) => dispatch(setLetterLimit(value))}
+                                                onClick={(value) => {
+                                                    dispatch(setLetterLimit(value));
+                                                    dispatch(setChallengeMode(false));
+                                                    router.push("/");
+                                                }}
                                                 value={6}
                                             />
                                         </div>
@@ -87,17 +103,29 @@ export default function Settings({ onClose }: { onClose: () => void }) {
                                         <div className="flex gap-x-1">
                                             <LimitButton
                                                 currentLimit={chanceLimit}
-                                                onClick={(value) => dispatch(setChanceLimit(value))}
+                                                onClick={(value) => {
+                                                    dispatch(setChanceLimit(value))
+                                                    dispatch(setChallengeMode(false));
+                                                    router.push("/");
+                                                }}
                                                 value={6}
                                             />
                                             <LimitButton
                                                 currentLimit={chanceLimit}
-                                                onClick={(value) => dispatch(setChanceLimit(value))}
+                                                onClick={(value) => {
+                                                    dispatch(setChanceLimit(value))
+                                                    dispatch(setChallengeMode(false));
+                                                    router.push("/");
+                                                }}
                                                 value={9}
                                             />
                                             <LimitButton
                                                 currentLimit={chanceLimit}
-                                                onClick={(value) => dispatch(setChanceLimit(value))}
+                                                onClick={(value) => {
+                                                    dispatch(setChanceLimit(value))
+                                                    dispatch(setChallengeMode(false));
+                                                    router.push("/");
+                                                }}
                                                 value={12}
                                             />
                                         </div>

@@ -9,6 +9,7 @@ const initialState: GameState = {
   tempWord: [],
   grid: [],
   gamePaused: false,
+  challengeMode: false,
 };
 
 export interface GameState {
@@ -19,6 +20,7 @@ export interface GameState {
   tempWord: Array<string>;
   grid: Array<Array<string>>;
   gamePaused: boolean;
+  challengeMode: boolean;
 }
 
 export const gameSlice = createSlice({
@@ -58,6 +60,9 @@ export const gameSlice = createSlice({
     },
     setGamePaused: (state, action: PayloadAction<boolean>) => {
       state.gamePaused = action.payload;
+    },
+    setChallengeMode: (state, action: PayloadAction<boolean>) => {
+      state.challengeMode = action.payload;
     }
   },
 });
@@ -74,6 +79,7 @@ export const {
   pushToGrid,
   clearGrid,
   setGamePaused,
+  setChallengeMode,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

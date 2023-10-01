@@ -19,6 +19,8 @@ export const tempWord = (state: RootState): Array<string> =>
 
 export const gamePaused = (state: RootState): boolean => state.game.gamePaused;
 
+export const challengeMode = (state: RootState): boolean => state.game.challengeMode;
+
 export const correctWord = (state: RootState): string => state.game.correctWord;
 
 export const grid = (state: RootState): Array<Array<string>> => state.game.grid;
