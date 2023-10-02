@@ -20,15 +20,16 @@ visit [http://localhost:3000](http://localhost:3000/)
 
 ### npm run build
 
-To build the Next.js application.
+Build the application
 
 ### npm run start
 
-To start the production copy of application.
+Start the production copy of application.
 
 ### npm run lint
 
-To report and fix the liniting issues.
+Report and fix the linting issues
 
+### Feedback
 
-
+You feedbacks are important. Raise issues or pull requests for any kind of bug, idea or improvement.
