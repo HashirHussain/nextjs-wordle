@@ -6,8 +6,9 @@ import Providers from "./Providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Wordle game",
-  description: "Wordle game clone in nextjs by hashir hussain",
+  title: "Wordle",
+  description:
+    "Wordle game build on nextJS TypeScript TailwindCSS and redux toolkit.",
 };
 
 export default function RootLayout({
