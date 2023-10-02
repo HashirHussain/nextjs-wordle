@@ -6,11 +6,19 @@ This is a clone project of the popular word guessing game we all know and love. 
 
 [**Click here to play the game!**](https://hashirhussain.github.io/wordle/) (_https://hashirhussain.github.io/wordle/_)
 
-### To Run Locally:
+### Tech Stack
+
+- [NextJs](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+
+### Run Locally:
 
 Clone the repository and perform the following command line actions:
 
 ```bash
+$> git clone https://github.com/HashirHussain/wordle.git
 $> cd wordle
 $> npm install
 $> npm run dev
