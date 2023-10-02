@@ -1,6 +1,7 @@
 # Next.js Wordle
 
-<img src="https://github.com/HashirHussain/wordle/assets/5574091/0524c3f0-410f-4eb2-b265-99e216b7ae4d" alt="worlde game by hashirhussain"/>
+![image](https://github.com/HashirHussain/wordle/assets/5574091/45994711-f124-49d7-89c6-434914038497)
+
 
 This is a clone project of the popular word guessing game we all know and love. Made using Next,js, Typescript, redux-toolkit and TailwindCSS.
 
